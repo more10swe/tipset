@@ -1,0 +1,33 @@
+
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+
+body 
+{
+    padding-top: 30px;
+    padding-bottom: 30px;
+    font: 62.5% "Trebuchet MS", sans-serif;
+}
+
+#xmlrespons
+{
+	margin-left: 50px;
+	position: absolute;
+	width: 400px;
+	border: dotted 1px black;
+}
+
+
+
+
+
+
+
+
+
+
+
+
