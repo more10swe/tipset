@@ -10,3 +10,5 @@ vajsing
 >>>>>>> committa nu för fan
 Joina du också! Alla får smisk.
 även här
+
+Nu testar Adam hära va
