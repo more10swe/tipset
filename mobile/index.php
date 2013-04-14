@@ -14,10 +14,13 @@
         
         <script src="../js/jquery-1.9.1.js"></script> <!-- Själva jQuery. -->
 		
-		<script src="../js/main.js"></script> <!-- Personliga javascript. -->
+		<script src="../custom/main.js"></script> <!-- Personliga javascript. -->
 
-		<script src="jquery.mobile-1.3.0.min.js"></script> <!-- Själva jQuery Mobile. -->
-		<link rel="stylesheet" href="jquery.mobile-1.3.0.min.css" /> <!-- jQuery Mobile CSSen. -->
+		<script src="../js/jquery.mobile-1.3.0.js"></script> <!-- Själva jQuery Mobile. -->
+		
+		<link rel="stylesheet" href="../css/jquery.mobile.structure-1.3.0.css" /> <!-- jQuery Mobile CSSen. -->
+		<link rel="stylesheet" href="../css/jquery.mobile.theme-1.3.0.css" /> <!-- jQuery Mobile CSSen. -->
+		<link rel="stylesheet" href="../css/jquery.mobile-1.3.0.css" /> <!-- jQuery Mobile CSSen. -->
 
 	</head>
 	<body>

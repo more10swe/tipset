@@ -2,9 +2,8 @@
 header("Content-type:text/html;charset=utf-8");
 //header("Refresh:3;form.php");
 
-//inkluderar klassen dbaccess
-include 'dbaccess_class.php';
-include 'secretstuff.php';
+//inkluderar hemliga saker
+include '../secretstuff.php';
 
 // koppla upp mot databasen
 $link = mysql_connect($link, $user, $pass)

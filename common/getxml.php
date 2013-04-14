@@ -1,6 +1,6 @@
 <?php
 
-	include 'secretstuff.php';
+	include '../secretstuff.php';
 
 	$timeout = 10;
 
