@@ -30,8 +30,6 @@ echo $hemmalag . " - " . $bortalag;
 $queryinsert = "INSERT INTO MATCHER VALUES ('$matchid','$hemmalag','$bortalag','$matchtid')";
 $queryupdate = "UPDATE MATCHER SET HEMMALAG='$hemmalag', BORTALAG='$bortalag', MATCHTID='$matchtid' WHERE 'MATCH-ID'='$matchid'";
 
-$db = new dbAccess('msundh.se.mysql' , 'msundh_se' , 'JyVjkJCN' , 'msundh_se');
-
 echo "<br />";
 
 

@@ -25,8 +25,6 @@ $matchid = "2";
 $queryinsert = "INSERT INTO RESULTAT VALUES ('$matchid','$hemmamal','$bortamal')";
 $queryupdate = "UPDATE RESULTAT SET HEMMAMAL='$hemmamal', BORTAMAL='$bortamal' WHERE `MATCH-ID`='$matchid'";
 
-$db = new dbAccess('msundh.se.mysql' , 'msundh_se' , 'JyVjkJCN' , 'msundh_se');
-
 echo "<br />";
 
 

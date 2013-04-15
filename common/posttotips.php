@@ -26,8 +26,6 @@ $bortamal_t = "1";
 $queryinsert = "INSERT INTO TIPS VALUES ('$tipparid','$matchid','$ort','$mail')";
 $queryupdate = "UPDATE TIPS SET HEMMAMAL_T='$hemmamal_t', BORTAMAL_T='$bortamal_t' WHERE `TIPPAR-ID`='$tipparid' AND `MATCH-ID`='$matchid'";
 
-$db = new dbAccess('msundh.se.mysql' , 'msundh_se' , 'JyVjkJCN' , 'msundh_se');
-
 echo "<br />";
 
 

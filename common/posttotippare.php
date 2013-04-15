@@ -26,8 +26,6 @@ $mail = "noll_kontrol95@hotmail.com";
 $queryinsert = "INSERT INTO TIPPARE VALUES ('$tipparid','$namn','$ort','$mail')";
 $queryupdate = "UPDATE TIPPARE SET NAMN='$namn', ORT='$ort', MAIL='$mail' WHERE `TIPPAR-ID`='$tipparid'";
 
-$db = new dbAccess('msundh.se.mysql' , 'msundh_se' , 'JyVjkJCN' , 'msundh_se');
-
 echo "<br />";
 
 
