@@ -5,12 +5,14 @@ header("Content-type:text/html;charset=utf-8");
 //inkluderar hemliga saker
 include '../secretstuff.php';
 
+//För att förtydliga vad som skickas in i connect-funktionen
+$dbname = $user;
+
 // koppla upp mot databasen
-$link = mysql_connect($link, $user, $pass)
-    or die("Could not connect");
-// välj databasen 
-mysql_select_db("msundh_se")
-    or die("Could not select database");
+$connection = mysqli_connect($link, $user, $pass, $dbname);
+if (mysqli_connect_errno()) {
+    echo "Failed to connect to MySQL: " . mysqli_connect_error();
+}
 
 $filename = "datan.xml";
 
@@ -30,21 +32,21 @@ echo "<br />";
 
 
 // En snäll notering: MAN MÅSTE ANVÄNDA SÅ KALLADE BACKTICKS NÄR SQL-TABELLEN ELLER KOLUMNEN INNEHÅLLER ETT BINDESTRECK ELLER LIKNANDE. ALLTSÅ SÅNAHÄRA: `
-$simplequery = mysql_query("SELECT `TIPPAR-ID`, `MATCH-ID` FROM TIPS HAVING `TIPPAR-ID`='$tipparid' AND `MATCH-ID`='$matchid'");
+$simplequery = mysqli_query($connection, "SELECT `TIPPAR-ID`, `MATCH-ID` FROM TIPS HAVING `TIPPAR-ID`='$tipparid' AND `MATCH-ID`='$matchid'");
 $results = mysql_fetch_assoc($simplequery);
 echo '<pre>'.print_r($results,true).'</pre>';
 
 if($results['MATCH-ID']!='' && $results['TIPPAR-ID']!='')
 {
 	// utför själva frågan
-	mysql_query($queryupdate)
+	mysqli_query($connection, $queryupdate);
 	    //or die(header("location:pinnacleapitest.php"));
 		or die();
 }
 else
 {
 	// utför själva frågan
-	mysql_query($queryinsert)
+	mysqli_query($connection, $queryupdate);
 	    //or die(header("location:pinnacleapitest.php"));
 		or die();
 }
