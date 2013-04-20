@@ -3,15 +3,20 @@ session_start(); // NEVER forget this!
 header("Content-type:text/html;charset=utf-8");
 if(!isset($_SESSION['inloggad']))
 {
-    die("Du får inte titta om du inte <a href='loginmain.php'>Loggar in</a>"); // Make sure they are logged in!
+    die("Du får inte titta om du inte <a href='loginmobile.php'>Loggar in</a>"); // Make sure they are logged in!
 } // What the !isset() code does, is check to see if the variable $_SESSION['loggedin'] is there, and if it isn't it kills the script telling the user to log in!
 
 ?>
 <html>
 	<head>
 		<title>Huvudmeny</title>
+
 		<link rel="icon" href="../favicon.ico">
         <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+        <meta name="description" content="Detta är en testsida, fan va fett!"> <!-- Typ bara beskrivning. -->
+        <meta name="viewport" content="width=device-width"> <!-- iPhone använder sig av viewport. -->
 
         <link rel="stylesheet" href="../css/bootstrap.css"> <!-- Bootstrap är en css från twitter, lite för styling. Kanske inte nödvändig. -->
 
@@ -28,6 +33,8 @@ if(!isset($_SESSION['inloggad']))
 
 		<script src="../custom/main.js"></script> <!-- Personliga javascript. -->
 
+
+		
 	</head>
 	<body>
 		<div class="all">
@@ -38,7 +45,17 @@ if(!isset($_SESSION['inloggad']))
 				<h2>Så det är du som är <?php echo $_SESSION['namn'] . " från " . $_SESSION['ort'] . "?";?>
 			</div>
 			<br />
-			<a href="logout.php">Logga ut</a>
+			<button id="logout">Logga ut</a>
 		</div>
+		<script type="text/javascript">
+			$("#logout").button();
+			$("#logout").click(function(){
+				<?php
+					$_SESSION = array();
+					session_destroy();
+				?>
+				$(".all").replaceWith("Utloggad! <br /><a href='loginmobile.php?ver="+<?php echo rand(1,100); ?>+"'>Tillbaka</a>");
+			});
+		</script>
 	</body>
 </html>

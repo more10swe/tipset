@@ -5,29 +5,180 @@
    ========================================================================== */
 
 
-body 
-{
-    padding-top: 30px;
-    padding-bottom: 30px;
-    font: 62.5% "Trebuchet MS", sans-serif;
-}
+
 
 #xmlrespons
 {
-	margin-left: 50px;
-	position: absolute;
-	width: 400px;
+	position: relative;
+	width: 100%;
 	border: dotted 1px black;
 }
 
+/* Divar på olika sidor
+----------------------------------*/
+
+div#logincontent
+{
+	position: relative;
+	padding: 150px;
+	height: 300px;
+	margin: auto auto;
+	background: blue;
+}
+
+div#loginleft
+{
+	position: relative;
+	float: left;
+	padding: 10px;
+	width: 100px;
+	margin-left: 250px;
+	background: red;
+}
+
+div#loginright
+{
+	position: relative;
+	padding: 10px;
+	width: 200px;
+	height: 150px;
+	margin-left: 370px;
+	background: white;
+}
+
+div#all
+{	
+	padding: 20px;
+	background: none;
+}
+
+div#content
+{
+	position: relative;
+	margin-top: 10px;
+	margin-right: auto;
+	margin-left: auto;
+	margin-bottom: 65px;
+	width: 1200px;
+	height: 100%;
+	background: aqua;
+}
+
+div#header
+{
+	position: relative;
+	padding: 5px;
+	margin-top: 0px;
+	height: 150px;
+	background: yellow;
+}
+
+div#menu
+{
+	position: relative;
+	padding: 5px;
+	height: 50px;
+	background: red;
+}
+
+div#maincontent
+{
+	position: relative;
+	padding: 10px;
+	height: 550px;
+	background: gray;
+}
+
+div#newsfeed
+{
+	position: absolute;
+	padding: 5px;
+	width: 480px;
+	height: 530px;
+	background: orange;
+}
+
+div#discussion
+{
+	position: absolute;
+	padding: 5px;
+	width: 360px;
+	margin-left: 500px;
+	height: 530px;
+	background: white;	
+}
+
+div#standings
+{
+	position: absolute;
+	padding: 5px;
+	width: 285px;
+	margin-left: 880px;
+	height: 530px;
+	background: purple;
+}
+
+div#footer
+{
+	position: fixed;
+	height: 60px;
+	width:100%;
+	background: black;
+	opacity: 0.8;
+	bottom: 0;
+	margin-left: 0px;
+	clear: both;
+}
 
 
+/* rubriker och texter
+----------------------------------*/
 
+body 
+{
+    font: 62.5% "Trebuchet MS", sans-serif;
+    padding-bottom: 0px;
+}
 
+label,
+input,
+button,
+textarea 
+{
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 20px;
+}
 
+button 
+{
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 20px;
+}
 
+textarea {
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 20px;
+}
 
+input,
+button 
+{
+  font-family: "Roboto Condensed", Helvetica, Arial, sans-serif;
+}
 
+label 
+{
+  display: inline;
+  margin-bottom: 2px;
+}
+
+h1
+{
+	text-align: center;
+}
 
 
 

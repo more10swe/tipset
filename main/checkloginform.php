@@ -17,7 +17,7 @@ session_start(); // This starts the session which is like a cookie, but it isn't
 
 if(isset($_SESSION['inloggad']))
 {
-    die("You are already logged in!");
+    die(print '<html><head><meta http-equiv="Refresh" content="2; URL=inloggad.php"></head>Redan inloggad, skickar dig till tipset...</html>');
 } // That bit of code checks if you are logged in or not, and if you are, you can't log in again!
 else if(isset($_POST['anvandarnamn']))
 {
@@ -33,7 +33,7 @@ else if(isset($_POST['anvandarnamn']))
 
     if(mysqli_stmt_num_rows($statement) < 1)
     {
-        die(print '<html><head><meta http-equiv="Refresh" content="3; URL=../main/loginmain.php"></head>Felaktiga inloggningsuppgifter...</html>');
+        die(print '<html><head><meta http-equiv="Refresh" content="3; URL=loginmain.php"></head>Felaktiga inloggningsuppgifter...</html>');
     } // That snippet checked to see if the number of rows the MySQL query was less than 1, so if it couldn't find a row, the password is incorrect or the user doesn't exist!
 
     /* bind result variables */
@@ -57,11 +57,11 @@ else if(isset($_POST['anvandarnamn']))
     mysqli_close($connection);
 
     die(
-      print '<html><head><meta http-equiv="Refresh" content="2; URL=../main/inloggad.php"></head>DU LOGGADE IN FÖRFAN!</html>'
+      print '<html><head><meta http-equiv="Refresh" content="2; URL=index.php"></head><body>DU LOGGADE IN FÖRFAN!</body></html>'  //
     ); // Kill the script here so it doesn't show the login form after you are logged in!
     
 } // That bit of code logs you in! The "$_POST['submit']" bit is the submission of the form down below VV
 
-print '<html><head><meta http-equiv="Refresh" content="3; URL=../main/loginmain.php"></head>Hur hamnade du här?</html>';
+print '<html><head><meta http-equiv="Refresh" content="3; URL=loginmain.php"></head>Hur hamnade du här?</html>';
 
 ?>

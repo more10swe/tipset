@@ -1,9 +1,14 @@
-<!DOCTYPE html>
-<!--
 <?php
-	//include 'data.php';
+session_start(); // NEVER forget this!
+header("Content-type:text/html;charset=utf-8");
+if(!isset($_SESSION['inloggad']))
+{
+    die("Du får inte titta om du inte <a href='loginmain.php'>Loggar in</a>"); // Make sure they are logged in!
+} // What the !isset() code does, is check to see if the variable $_SESSION['loggedin'] is there, and if it isn't it kills the script telling the user to log in!
+
 ?>
--->
+<!DOCTYPE html>
+
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
@@ -34,16 +39,44 @@
 	</head>
 	
 	<body>
-		<div class="ui-widget">
-
-			<h2 class="demoHeaders">Testarsidan, va.</h2>
-			<button class="btn btn-primary" onClick="xml_parse('name')">Lista på lag</button>
-			<button id="button" onClick="xml_parse('homePrice')">Lista på hemmaodds</button>
-			<button class="btn btn-large" onClick="xml_parse('startDateTime')">Lista på tider</button>
-
-			<h3>
-				<div id="xmlrespons">Här finns inget att se, hihi.</div>
-			</h3>
+		<div id="all">
+			<div id="content">
+				<div id="header"><h1>HEADER</h1></div>
+				<div id="menu"><h2>MENY (Nyheter/Hem - Mitt tips - Allas Tips/Tabell)</h2></div>
+				<div id="maincontent">
+					<div id="newsfeed">
+						<h2>NYHETER<br />
+						(XML-feed)</h2>
+					</div>
+					<div id="discussion">
+						<h2>DISKUSSION<br />
+						Användare kan posta små inlägg.<br />
+						Man kan bara posta när man är inloggad.<br />
+						Inloggade användare kan tabort sina egna inlägg.<br />
+						Kan behövas en databas för inläggen.<br />
+						Bild, tidsstämpel och text publiceras.</h2>
+					</div>
+					<div id="standings">
+						<h2>TABELL<br />
+						(Simplare tabell)</h2>
+						<!--
+						<div class="ui-widget">
+							<h2 class="demoHeaders">Testarsidan, va.</h2>
+							<button class="btn btn-primary" onClick="xml_parse('name')">Lista på lag</button>
+							<button id="button" onClick="xml_parse('homePrice')">Lista på hemmaodds</button>
+							<button class="btn btn-large" onClick="xml_parse('startDateTime')">Lista på tider</button>
+							<h3>
+								<div id="xmlrespons">Här finns inget att se, hihi.</div>
+							</h3>
+						</div>
+						-->
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="footer">
+			<h3 style="display:inline;">Inloggad som <?php echo $_SESSION['anvandarnamn']; ?></h3>
+			<a class="btn btn-large" href="logout.php" style="float:right; margin:5px;">Logga ut mig!</a>
 		</div>
 	</body>
 </html>

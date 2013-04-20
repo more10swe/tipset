@@ -34,6 +34,26 @@
 			<h3>
 				<div id="xmlrespons">Här finns inget att se, hihi.</div>
 			</h3>
+
+			<form action="../common/checkloginform.php" method="post">
+			    <ul data-role="listview" data-inset="true">
+			        <li data-role="fieldcontain">
+			            <label for="text-basic">Användarnamn:</label>
+			            <input type="text" name="anvandarnamn" value="Användarnamn" id="text-basic" data-clear-btn="true"><br />
+			        </li>
+			        <li data-role="fieldcontain">
+			            <label for="password">Lösenord:</label>
+			            <input type="password" name="losenord" id="password" value="Lösenord" autocomplete="off">
+			        </li>
+			        <li class="ui-body ui-body-b">
+			            <fieldset class="ui-grid-a">
+			                    <div class="ui-block-a"><button type="reset" data-theme="d">Cancel</button></div>
+			                    <div class="ui-block-b"><button type="submit" data-theme="a">Submit</button></div>
+			            </fieldset>
+			        </li>
+			    </ul>
+			</form>
+			
 		</div>
 	</body>
 </html>
