@@ -6,6 +6,7 @@ if(!isset($_SESSION['inloggad']))
     die("Du får inte titta om du inte <a href='loginmain.php'>Loggar in</a>"); // Make sure they are logged in!
 } // What the !isset() code does, is check to see if the variable $_SESSION['loggedin'] is there, and if it isn't it kills the script telling the user to log in!
 
+
 ?>
 <!DOCTYPE html>
 
@@ -42,35 +43,8 @@ if(!isset($_SESSION['inloggad']))
 		<div id="all">
 			<div id="content">
 				<div id="header"><h1>HEADER</h1></div>
-				<div id="menu"><h2>MENY (Nyheter/Hem - Mitt tips - Allas Tips/Tabell)</h2></div>
+				<div id="menu"><button class="btn menubutton" onclick="getPage('start.php')">Hem</button><button class="btn menubutton" onclick="getPage('tips.php')">Mitt tips</button><button class="btn menubutton" onclick="getPage('table.php')">Tabell</button></div>
 				<div id="maincontent">
-					<div id="newsfeed">
-						<h2>NYHETER<br />
-						(XML-feed)</h2>
-					</div>
-					<div id="discussion">
-						<h2>DISKUSSION<br />
-						Användare kan posta små inlägg.<br />
-						Man kan bara posta när man är inloggad.<br />
-						Inloggade användare kan tabort sina egna inlägg.<br />
-						Kan behövas en databas för inläggen.<br />
-						Bild, tidsstämpel och text publiceras.</h2>
-					</div>
-					<div id="standings">
-						<h2>TABELL<br />
-						(Simplare tabell)</h2>
-						<!--
-						<div class="ui-widget">
-							<h2 class="demoHeaders">Testarsidan, va.</h2>
-							<button class="btn btn-primary" onClick="xml_parse('name')">Lista på lag</button>
-							<button id="button" onClick="xml_parse('homePrice')">Lista på hemmaodds</button>
-							<button class="btn btn-large" onClick="xml_parse('startDateTime')">Lista på tider</button>
-							<h3>
-								<div id="xmlrespons">Här finns inget att se, hihi.</div>
-							</h3>
-						</div>
-						-->
-					</div>
 				</div>
 			</div>
 		</div>
@@ -78,5 +52,13 @@ if(!isset($_SESSION['inloggad']))
 			<h3 style="display:inline;">Inloggad som <?php echo $_SESSION['anvandarnamn']; ?></h3>
 			<a class="btn btn-large" href="logout.php" style="float:right; margin:5px;">Logga ut mig!</a>
 		</div>
+
+		<?php
+		//DET HÄR ÄR KOD FÖR ATT LADDA OM DEN SIDA SOM MAN TITTADE PÅ. DET ÄR IRRITERANDE ATT HAMNA PÅ STARTSIDAN HELA TIDEN!
+			if (isset($_SESSION['sida'])) 
+			{
+				print("<script>getPage('" . $_SESSION['sida'] . "');</script>");
+			}
+		?>
 	</body>
 </html>

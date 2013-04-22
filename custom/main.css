@@ -79,6 +79,7 @@ div#menu
 	padding: 5px;
 	height: 50px;
 	background: red;
+	text-align: center;
 }
 
 div#maincontent
@@ -145,34 +146,34 @@ input,
 button,
 textarea 
 {
-  font-size: 14px;
-  font-weight: bold;
-  line-height: 20px;
+	font-size: 14px;
+	font-weight: bold;
+	line-height: 20px;
 }
 
 button 
 {
-  font-size: 14px;
-  font-weight: bold;
-  line-height: 20px;
+	font-size: 14px;
+	font-weight: bold;
+	line-height: 20px;
 }
 
 textarea {
-  font-size: 12px;
-  font-weight: normal;
-  line-height: 20px;
+	font-size: 12px;
+	font-weight: normal;
+	line-height: 20px;
 }
 
 input,
 button 
 {
-  font-family: "Roboto Condensed", Helvetica, Arial, sans-serif;
+	font-family: "Roboto Condensed", Helvetica, Arial, sans-serif;
 }
 
 label 
 {
-  display: inline;
-  margin-bottom: 2px;
+	display: inline;
+	margin-bottom: 2px;
 }
 
 h1
@@ -181,4 +182,48 @@ h1
 }
 
 
+/* övrigt
+----------------------------------*/
+
+.menubutton
+{
+	margin-left:100px;
+	margin-right: 100px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#sparatips
+{
+	float:right;
+	margin-left: 10px;
+	margin-top: 10px;
+}
+
+/* tabellmanipulation
+----------------------------------*/
+
+td, th
+{
+	border: 1px solid black;
+	background-color: white;
+}
+
+#bettable
+{
+	border: 1px solid black;
+	width: 95%;
+	text-align: center;
+	margin-left: 10px;
+	margin-right: 10px;
+	background-color: white;
+	font-family: "Courier New";
+	font-size: 12pt;
+}
+
+#bettablehead
+{
+	background-color: #F5C79F;
+	border: 1px solid black;
+}
 

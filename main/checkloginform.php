@@ -50,6 +50,7 @@ else if(isset($_POST['anvandarnamn']))
 
     $_SESSION['namn'] = utf8_encode($meranvandardata["NAMN"]);
     $_SESSION['ort'] = $meranvandardata["ORT"];
+    $_SESSION['sida'] = "start.php"; //Kommer ihåg vilken sida man var på (om man vill refresha). Börjar med startsidan.
 
     /* free result set */
     mysqli_free_result($userquery);
