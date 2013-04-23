@@ -205,13 +205,13 @@ h1
 
 td, th
 {
-	border: 1px solid black;
+	border: 0px solid black;
 	background-color: white;
 }
 
 #bettable
 {
-	border: 1px solid black;
+	border: 0px solid black;
 	width: 95%;
 	text-align: center;
 	margin-left: 10px;
@@ -225,5 +225,10 @@ td, th
 {
 	background-color: #F5C79F;
 	border: 1px solid black;
+}
+
+input.nyttips
+{
+	width: 50px;
 }
 

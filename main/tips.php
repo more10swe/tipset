@@ -5,13 +5,14 @@
 	?>
 
 <script src="../js/jquery-1.9.1.js"></script> <!-- Själva jQuery. -->
+<script src="../js/jquery-ui-1.10.2.custom.js"></script> <!-- jQuery UI. -->
 <script type="text/javascript">
 	function insertLine(tid,hemma,borta,tips,matchid)
 	{
 		res="";
 		tecken="";
 		poang="(6,66)";
-		aendra="<input id='"+matchid+"' type='text' size='1'></input>";
+		aendra="<input class='nyttips' id='"+matchid+"' type='text'></input>";
 		//Script som placerar in rätt värde i rätt td
 		$("#bettable").append("<tr><td>"+tid+"</td><td>"+hemma+"</td><td>-</td><td>"+borta+"</td><td>"+res+"</td><td>"+tecken+"</td><td>"+tips+"</td><td>"+poang+"</td><td>"+aendra+"</td></tr>");
 	}
@@ -36,7 +37,7 @@
 				} 
 				catch(e) 
 				{
-					alert("Resultatet skall vara på formatet X-Y! <br />ex) 2-0")
+					alert("Resultatet skall vara på formatet X-Y! ex) 2-0")
 				}
 				finally
 				{
@@ -116,6 +117,14 @@
 	print "klockan är nu: " . date('H:i:s') . " och det är följande datum: " . date('Y-m-d');
 
 ?>
+
+<script type="text/javascript">
+	var tooltipoutput = "Här skulle man kunna ha oddsen! <br />1-0: 5,23 | 0-0: 65,12 | 0-1: 9,23<br />2-1: 25,23 | 1-1: 25,42 | 0-2: 19,23<br />2-0: 35,23 | 2-2: 15,41 | 0-3: 29,23<br />osv..";
+	$(".nyttips").tooltip({ 
+		track: true,
+		items: ".nyttips",
+		content: tooltipoutput });	
+</script>
 
 <button id="sparatips" class="btn btn-large">Spara Tips</button>
 <table id="bettable">

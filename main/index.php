@@ -19,7 +19,7 @@ if(!isset($_SESSION['inloggad']))
     	<link rel="icon" href="../favicon.ico">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-       	<title>Test av Pinnacle API</title>
+       	<title>Kompistipset</title>
         <meta name="description" content="Detta är en testsida, fan va fett!"> <!-- Typ bara beskrivning. -->
         <meta name="viewport" content="width=device-width"> <!-- iPhone använder sig av viewport. -->
 
