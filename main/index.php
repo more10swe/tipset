@@ -1,12 +1,11 @@
 <?php
 session_start(); // NEVER forget this!
 header("Content-type:text/html;charset=utf-8");
+
 if(!isset($_SESSION['inloggad']))
 {
     die("Du får inte titta om du inte <a href='loginmain.php'>Loggar in</a>"); // Make sure they are logged in!
 } // What the !isset() code does, is check to see if the variable $_SESSION['loggedin'] is there, and if it isn't it kills the script telling the user to log in!
-
-
 ?>
 <!DOCTYPE html>
 
@@ -26,6 +25,8 @@ if(!isset($_SESSION['inloggad']))
         <link rel="stylesheet" href="../css/bootstrap.css"> <!-- Bootstrap är en css från twitter, lite för styling. Kanske inte nödvändig. -->
 
         <link rel="stylesheet" href="../css/bootstrap-responsive.css"> <!-- Samma som ovan. -->
+		
+		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Advent+Pro&subset=latin,latin-ext"><!-- Google Fonts -->
         
         <script src="../js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script> <!-- Lite importerat javascript. -->
 
@@ -42,7 +43,7 @@ if(!isset($_SESSION['inloggad']))
 	<body>
 		<div id="all">
 			<div id="content">
-				<div id="header"><h1>HEADER</h1></div>
+				<div id="header"><h1>VM-tipset 2014</h1></div>
 				<div id="menu"><button class="btn menubutton" onclick="getPage('start.php')">Hem</button><button class="btn menubutton" onclick="getPage('tips.php')">Mitt tips</button><button class="btn menubutton" onclick="getPage('table.php')">Tabell</button></div>
 				<div id="maincontent">
 				</div>

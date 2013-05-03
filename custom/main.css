@@ -109,6 +109,14 @@ div#discussion
 	background: white;	
 }
 
+div#comment
+{
+	position: relative;
+	padding: 5px;
+	background: #E6E6E6;
+	margin-bottom: 5px;
+}
+
 div#standings
 {
 	position: absolute;
@@ -179,6 +187,22 @@ label
 h1
 {
 	text-align: center;
+	font-family: 'Advent Pro', sans-serif;
+	font-size: 48px;
+}
+
+h2
+{
+	text-align: center;
+	font-family: 'Advent Pro', sans-serif;
+	font-size: 28px;
+}
+
+p#commentdate
+{
+	margin: 0px;
+	text-align: right;
+	color: #8E8E8E;
 }
 
 
