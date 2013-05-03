@@ -230,7 +230,7 @@ p#commentdate
 td, th
 {
 	border: 0px solid black;
-	background-color: white;
+	background-color: none;
 }
 
 #bettable
