@@ -2,25 +2,16 @@
 	session_start(); // NEVER forget this!
 	$_SESSION['sida'] = "tips.php"; //Kommer ihåg vilken sida man var på (om man vill refresha).
 
-	?>
+?>
 
 <script src="../js/jquery-1.9.1.js"></script> <!-- Själva jQuery. -->
 <script src="../js/jquery-ui-1.10.2.custom.js"></script> <!-- jQuery UI. -->
 <script type="text/javascript">
-<<<<<<< HEAD
-	function insertLine(tid,hemma,borta,tips,matchid)
-=======
 	function insertLine(tid,hemma,borta,tips,matchid,odds,startat,resultat)
->>>>>>> Nu hämtas resultaten från databasen och skrivs ut på tips-sidan.
 	{
 		res="x-x";
 		tecken="";
-		poang="(6,66)";
 		aendra="<input class='nyttips' id='"+matchid+"' type='text'></input>";
-<<<<<<< HEAD
-		//Script som placerar in rätt värde i rätt td
-		$("#bettable").append("<tr><td>"+tid+"</td><td>"+hemma+"</td><td>-</td><td>"+borta+"</td><td>"+res+"</td><td>"+tecken+"</td><td>"+tips+"</td><td>"+poang+"</td><td>"+aendra+"</td></tr>");
-=======
 		//Här kommer en if-sats som kollar om matchen har startat eller ej!
 		if(startat=="ja")
 		{
@@ -43,7 +34,6 @@
 		track: true,
 		items: "#"+matchid,
 		content: tooltipoutput });	
->>>>>>> Nu hämtas resultaten från databasen och skrivs ut på tips-sidan.
 	}
 
 	$("#sparatips").click(function()
@@ -124,16 +114,12 @@
 			if ($result2 = mysqli_query($connection, $query)) {
 
 			    /* fetch associative array */
-			    while ($row2 = mysqli_fetch_assoc($result2)) {
-			        echo "<script>insertLine('" . $row['MATCHTID'] . "','" . $row['HEMMALAG'] . "','" . $row['BORTALAG'] . "','" . $row2['HEMMAMAL_T'] . "-" . $row2['BORTAMAL_T'] . "','" . $matchid . "')</script>";
-			    }
-
+			    $row2 = mysqli_fetch_assoc($result2);
+			    
 			    /* free result set */
 			    mysqli_free_result($result2);
 			}
 
-<<<<<<< HEAD
-=======
 			## Här bestäms om matchen har startat eller inte
 			## Jag är dock inte helt med på varför jämförelsen blir som den blir, det borde bli tvärtom..
 			$avspark = date_create($row['MATCHTID']);
@@ -186,7 +172,6 @@
 			//Skriver ut de rätta oddsen i tooltipen
 			echo "<script>addToolTip('" . $matchid . "','" . $odds1 . "','" . $oddsx . "','" . $odds2 . "')</script>";
 
->>>>>>> Nu hämtas resultaten från databasen och skrivs ut på tips-sidan.
 	    }
 
 	    /* free result set */
@@ -202,6 +187,7 @@
 
 ?>
 
+<!--
 <script type="text/javascript">
 	var tooltipoutput = "Här skulle man kunna ha oddsen! <br />1-0: 5,23 | 0-0: 65,12 | 0-1: 9,23<br />2-1: 25,23 | 1-1: 25,42 | 0-2: 19,23<br />2-0: 35,23 | 2-2: 15,41 | 0-3: 29,23<br />osv..";
 	$(".nyttips").tooltip({ 
@@ -209,6 +195,7 @@
 		items: ".nyttips",
 		content: tooltipoutput });	
 </script>
+-->
 
 <button id="sparatips" class="btn btn-large">Spara Tips</button>
 <table id="bettable">
@@ -235,7 +222,7 @@
 			Mitt Tips
 		</th>
 		<th>
-			Poäng
+			Poäng/Odds
 		</th>
 		<th>
 			Ändra Tips
