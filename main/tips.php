@@ -7,14 +7,43 @@
 <script src="../js/jquery-1.9.1.js"></script> <!-- Själva jQuery. -->
 <script src="../js/jquery-ui-1.10.2.custom.js"></script> <!-- jQuery UI. -->
 <script type="text/javascript">
+<<<<<<< HEAD
 	function insertLine(tid,hemma,borta,tips,matchid)
+=======
+	function insertLine(tid,hemma,borta,tips,matchid,odds,startat,resultat)
+>>>>>>> Nu hämtas resultaten från databasen och skrivs ut på tips-sidan.
 	{
-		res="";
+		res="x-x";
 		tecken="";
 		poang="(6,66)";
 		aendra="<input class='nyttips' id='"+matchid+"' type='text'></input>";
+<<<<<<< HEAD
 		//Script som placerar in rätt värde i rätt td
 		$("#bettable").append("<tr><td>"+tid+"</td><td>"+hemma+"</td><td>-</td><td>"+borta+"</td><td>"+res+"</td><td>"+tecken+"</td><td>"+tips+"</td><td>"+poang+"</td><td>"+aendra+"</td></tr>");
+=======
+		//Här kommer en if-sats som kollar om matchen har startat eller ej!
+		if(startat=="ja")
+		{
+			//Script som placerar in rätt värde i rätt td för startade matcher
+			$("#bettable").append("<tr><td>"+tid+"</td><td>"+hemma+"</td><td>-</td><td>"+borta+"</td><td>"+resultat+"</td><td>"+tecken+"</td><td>"+tips+"</td><td>"+odds+"</td><td></td></tr>");
+		}
+		else if(startat=="nej")
+		{
+			//Script som placerar in rätt värde i rätt td för ickestartade matcher
+			$("#bettable").append("<tr><td>"+tid+"</td><td>"+hemma+"</td><td>-</td><td>"+borta+"</td><td>"+res+"</td><td>"+tecken+"</td><td>"+tips+"</td><td>("+odds+")</td><td>"+aendra+"</td></tr>");
+		}
+		
+	}
+
+	function addToolTip(matchid, odds1, oddsx, odds2)
+	{
+		var tooltipoutput = "Odds:<br /><table><tr><td>1</td><td>X</td><td>2</td></tr><tr><td>"+odds1+"</td><td>"+oddsx+"</td><td>"+odds2+"</td></tr></table>";
+		
+		$("#"+matchid).tooltip({ 
+		track: true,
+		items: "#"+matchid,
+		content: tooltipoutput });	
+>>>>>>> Nu hämtas resultaten från databasen och skrivs ut på tips-sidan.
 	}
 
 	$("#sparatips").click(function()
@@ -103,6 +132,61 @@
 			    mysqli_free_result($result2);
 			}
 
+<<<<<<< HEAD
+=======
+			## Här bestäms om matchen har startat eller inte
+			## Jag är dock inte helt med på varför jämförelsen blir som den blir, det borde bli tvärtom..
+			$avspark = date_create($row['MATCHTID']);
+			$nutid = date_create("now");
+			if ($avspark<$nutid) 
+			{
+				$startad = "ja";
+				$resultat_h = mysqli_query($connection, "SELECT HEMMAMAL FROM RESULTAT WHERE `MATCH-ID`=$matchid");
+				$res_answer = mysqli_fetch_assoc($resultat_h);
+				$res_h = $res_answer['HEMMAMAL'];
+
+				mysqli_free_result($resultat_h);
+
+				$resultat_b = mysqli_query($connection, "SELECT BORTAMAL FROM RESULTAT WHERE `MATCH-ID`=$matchid");
+				$res_answer = mysqli_fetch_assoc($resultat_b);				
+				$res_b = $res_answer['BORTAMAL'];
+
+				mysqli_free_result($resultat_b);
+
+				$resultat = $res_h . "-" . $res_b;
+			}
+			elseif ($avspark>$nutid) 
+			{
+				$startad = "nej";
+			}
+			//Lägger till två timmar på avsparkstiden
+			date_modify($avspark, '+2 hours');
+
+			//Skriver ut raden för den aktuella matchen
+			echo "<script>insertLine('" . date_format($avspark, 'Y-m-d H:i:s') . "','" . $row['HEMMALAG'] . "','" . $row['BORTALAG'] . "','" . $row2['HEMMAMAL_T'] . "-" . $row2['BORTAMAL_T'] . "','" . $matchid . "','" . $row2['ODDS'] . "','" . $startad . "','" . $resultat . "')</script>";
+
+			//Nu ska vi få in de rätta oddsen i tooltipen!
+			$filename = "../common/datan.xml";
+			$oddsfeed = simplexml_load_file($filename);
+			foreach ($oddsfeed->fd->sports->sport->leagues->league->events->event as $match) //Slinga som letar upp alla oddsen till matcherna för användning i tooltipen!
+			{
+				if ($match->id == $matchid) 
+				{
+					foreach ($match->periods->period as $oddsfeed2) 
+					{
+						if ($oddsfeed2->moneyLine->homePrice != "") 
+						{
+							$odds1 = $oddsfeed2->moneyLine->homePrice;
+							$oddsx = $oddsfeed2->moneyLine->drawPrice;
+							$odds2 = $oddsfeed2->moneyLine->awayPrice;
+						}
+					}
+				}
+			}
+			//Skriver ut de rätta oddsen i tooltipen
+			echo "<script>addToolTip('" . $matchid . "','" . $odds1 . "','" . $oddsx . "','" . $odds2 . "')</script>";
+
+>>>>>>> Nu hämtas resultaten från databasen och skrivs ut på tips-sidan.
 	    }
 
 	    /* free result set */
