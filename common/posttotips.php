@@ -32,15 +32,25 @@ foreach ($oddsfeed->fd->sports->sport->leagues->league->events->event as $match)
 		{
 			if ($hemmamal_t>$bortamal_t) 
 			{
-				$odds = $oddsfeed2->moneyLine->homePrice;
+				if ($oddsfeed2->moneyLine->homePrice != "") 
+				{
+					$odds = $oddsfeed2->moneyLine->homePrice;
+				}
+				
 			}
 			else if ($hemmamal_t==$bortamal_t) 
 			{
-				$odds = $oddsfeed2->moneyLine->drawPrice;
+				if ($oddsfeed2->moneyLine->drawPrice != "") 
+				{
+					$odds = $oddsfeed2->moneyLine->drawPrice;
+				}
 			}
 			else if ($hemmamal_t<$bortamal_t) 
 			{
-				$odds = $oddsfeed2->moneyLine->awayPrice;
+				if ($oddsfeed2->moneyLine->awayPrice != "") 
+				{
+					$odds = $oddsfeed2->moneyLine->awayPrice;
+				}
 			}
 			else
 			{

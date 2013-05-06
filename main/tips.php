@@ -2,7 +2,7 @@
 	session_start(); // NEVER forget this!
 	$_SESSION['sida'] = "tips.php"; //Kommer ihåg vilken sida man var på (om man vill refresha).
 
-	?>
+?>
 
 <script src="../js/jquery-1.9.1.js"></script> <!-- Själva jQuery. -->
 <script src="../js/jquery-ui-1.10.2.custom.js"></script> <!-- jQuery UI. -->
@@ -147,9 +147,12 @@
 				{
 					foreach ($match->periods->period as $oddsfeed2) 
 					{
-						$odds1 = $oddsfeed2->moneyLine->homePrice;
-						$oddsx = $oddsfeed2->moneyLine->drawPrice;
-						$odds2 = $oddsfeed2->moneyLine->awayPrice;
+						if ($oddsfeed2->moneyLine->homePrice != "") 
+						{
+							$odds1 = $oddsfeed2->moneyLine->homePrice;
+							$oddsx = $oddsfeed2->moneyLine->drawPrice;
+							$odds2 = $oddsfeed2->moneyLine->awayPrice;
+						}
 					}
 				}
 			}

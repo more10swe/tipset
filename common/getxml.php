@@ -2,7 +2,7 @@
 
 	include '../secretstuff.php';
 
-	$timeout = 10;
+	$timeout = 20;
 
 	$curl = curl_init();
 	curl_setopt($curl, CURLOPT_URL, $url);
