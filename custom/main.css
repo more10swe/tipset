@@ -1,5 +1,4 @@
 
-
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
@@ -109,14 +108,6 @@ div#discussion
 	background: white;	
 }
 
-div#comment
-{
-	position: relative;
-	padding: 5px;
-	background: #E6E6E6;
-	margin-bottom: 5px;
-}
-
 div#standings
 {
 	position: absolute;
@@ -137,6 +128,25 @@ div#footer
 	bottom: 0;
 	margin-left: 0px;
 	clear: both;
+}
+
+
+div.comment
+{
+	position: relative;
+	padding: 5px;
+	background: #E6E6E6;
+	margin-bottom: 5px;
+}
+
+#commentinput
+{
+	resize:none;
+	width:96%;
+}
+
+#commentsubmit
+{
 }
 
 
@@ -230,7 +240,7 @@ p#commentdate
 td, th
 {
 	border: 0px solid black;
-	background-color: none;
+	background-color: white;
 }
 
 #bettable
