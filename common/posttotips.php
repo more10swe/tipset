@@ -77,7 +77,7 @@ $results = mysqli_fetch_assoc($simplequery);
 if($results['MATCH-ID']!='' && $results['TIPPAR-ID']!='')
 {
 	// utför själva frågan
-	mysqli_query($connection, $queryupdate);
+	mysqli_real_query($connection, $queryupdate);
 	print_r(" uppdaterar");
 	    //or die(header("location:pinnacleapitest.php"));
 		//or die();
@@ -85,7 +85,7 @@ if($results['MATCH-ID']!='' && $results['TIPPAR-ID']!='')
 else
 {
 	// utför själva frågan
-	mysqli_query($connection, $queryinsert);
+	mysqli_real_query($connection, $queryinsert);
 	print_r(" insertar");
 	    //or die(header("location:pinnacleapitest.php"));
 		//or die();

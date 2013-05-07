@@ -16,47 +16,52 @@ if (mysqli_connect_errno()) {
 $filename = "datan.xml";
 
 $oddsfeed = simplexml_load_file($filename);
+$noresult = 999;
 
-foreach ($oddsfeed->fd->sports->sport->leagues->league->events->event as $match) //Stor slinga som stoppar in alla matcherna i databasen!
+if(is_array($oddsfeed->fd->sports->sport->leagues->league->events->event))
 {
-
-	$hemmalag = $match->homeTeam->name;
-	$bortalag = $match->awayTeam->name;
-	$matchtid = $match->startDateTime;
-	$matchid = $match->id;
-
-	# För att se strukturen enkelt.
-	#<rsp status="ok"><fd><sports><sport><leagues><league><events><event><startDateTime>2013-04-12T16:59:00Z</startDateTime><id>296512768</id><homeTeam><name>Brommapojkarna</name><rotNum>5901</rotNum></homeTeam><awayTeam><name>IFK Norrkoping FK
-	#
-	echo $hemmalag . " - " . $bortalag;
-
-	// två sql-satser
-	$queryinsert = "INSERT INTO MATCHER VALUES ('$matchid','$hemmalag','$bortalag','$matchtid')";
-	$queryupdate = "UPDATE MATCHER SET HEMMALAG='$hemmalag', BORTALAG='$bortalag', MATCHTID='$matchtid' WHERE 'MATCH-ID'='$matchid'";
-
-	echo "<br />";
-
-
-	// En snäll notering: MAN MÅSTE ANVÄNDA SÅ KALLADE BACKTICKS NÄR SQL-TABELLEN ELLER KOLUMNEN INNEHÅLLER ETT BINDESTRECK ELLER LIKNANDE. ALLTSÅ SÅNAHÄRA: `
-	$simplequery = mysqli_query($connection, "SELECT `MATCH-ID` FROM MATCHER HAVING `MATCH-ID`='$matchid'");
-	$results = mysqli_fetch_assoc($simplequery);
-	echo '<pre>'.print_r($results,true).'</pre>';
-	echo "Kan det bli en tvåa? " . $results['MATCH-ID'] . "<br />";
-
-
-	if($results['MATCH-ID']!="")
+	foreach ($oddsfeed->fd->sports->sport->leagues->league->events->event as $match) //Stor slinga som stoppar in alla matcherna i databasen!
 	{
-		// utför själva frågan
-		mysqli_query($connection, $queryupdate);
-		    //or die(header("location:pinnacleapitest.php"));
-			//or die();
-	}
-	else
-	{
-		// utför själva frågan
-		mysqli_query($connection, $queryinsert);
-		    //or die(header("location:pinnacleapitest.php"));
-			//or die();
+
+		$hemmalag = $match->homeTeam->name;
+		$bortalag = $match->awayTeam->name;
+		$matchtid = $match->startDateTime;
+		$matchid = $match->id;
+
+		# För att se strukturen enkelt.
+		#<rsp status="ok"><fd><sports><sport><leagues><league><events><event><startDateTime>2013-04-12T16:59:00Z</startDateTime><id>296512768</id><homeTeam><name>Brommapojkarna</name><rotNum>5901</rotNum></homeTeam><awayTeam><name>IFK Norrkoping FK
+		#
+		echo $hemmalag . " - " . $bortalag;
+
+		// två sql-satser
+		$queryinsert = "INSERT INTO MATCHER VALUES ('$matchid','$hemmalag','$bortalag','$matchtid')";
+		$queryupdate = "UPDATE MATCHER SET HEMMALAG='$hemmalag', BORTALAG='$bortalag', MATCHTID='$matchtid' WHERE `MATCH-ID`='$matchid'";
+		$queryinsertresult = "INSERT INTO RESULTAT VALUES ('$matchid','$noresult','$noresult')";
+
+		echo "<br />";
+
+
+		// En snäll notering: MAN MÅSTE ANVÄNDA SÅ KALLADE BACKTICKS NÄR SQL-TABELLEN ELLER KOLUMNEN INNEHÅLLER ETT BINDESTRECK ELLER LIKNANDE. ALLTSÅ SÅNAHÄRA: `
+		$simplequery = mysqli_query($connection, "SELECT `MATCH-ID` FROM MATCHER HAVING `MATCH-ID`='$matchid'");
+		$results = mysqli_fetch_assoc($simplequery);
+		//echo '<pre>'.print_r($results,true).'</pre>';
+
+
+		if($results['MATCH-ID']!="")
+		{
+			// utför själva frågan
+			mysqli_real_query($connection, $queryupdate);
+			    //or die(header("location:pinnacleapitest.php"));
+				//or die();
+		}
+		else
+		{
+			// utför själva frågan
+			mysqli_real_query($connection, $queryinsert);
+			mysqli_real_query($connection, $queryinsertresult);
+			    //or die(header("location:pinnacleapitest.php"));
+				//or die();
+		}
 	}
 }
 
