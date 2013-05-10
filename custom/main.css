@@ -149,8 +149,6 @@ div.comment
 {
 }
 
-<<<<<<< HEAD
-=======
 div.newsheading
 {
 	position:absolute;
@@ -220,7 +218,6 @@ hr.news
 		rgb(255,255,255) 100%
 	);
 }
->>>>>>> Nyhetsflödet är halvgjort. Dvs, visas lite konstigt, men läses bra från en xml-fil
 
 /* rubriker och texter
 ----------------------------------*/

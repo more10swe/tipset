@@ -68,11 +68,8 @@
 		ajaxRequest.send("what=post&comment="+comment);
 	}
 
-<<<<<<< HEAD
-	function removeComment(kommentarid){
-=======
+
 	function ajaxRemoveComment(kommentarid){
->>>>>>> Nyhetsflödet är halvgjort. Dvs, visas lite konstigt, men läses bra från en xml-fil
 		var konfirmation=confirm("Är du säker?");
 		if (konfirmation==true){
 			var ajaxRequest = getXMLHttp();
@@ -88,8 +85,6 @@
 			ajaxRequest.open("POST", "commentfunctions.php", true);
 			ajaxRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			ajaxRequest.send("what=remove&kommentarid="+kommentarid);
-<<<<<<< HEAD
-=======
 		}
 	}
 		
@@ -97,11 +92,9 @@
 		tabort = "";
 		if(tipparid == kommentator){
 			tabort = "<a href='JavaScript:ajaxRemoveComment("+kommentarid+")'>Ta bort</a> - ";
->>>>>>> Nyhetsflödet är halvgjort. Dvs, visas lite konstigt, men läses bra från en xml-fil
 		}
 	}
-		
-<<<<<<< HEAD
+
 	function insertComment(namn, text, tidsstampel, kommentator, tipparid, kommentarid, append){			
 		tabort = "";
 		if(tipparid == kommentator){
@@ -119,7 +112,6 @@
 			$("#"+kommentarid).hide();
 			$("#"+kommentarid).show('fast');
 		}
-=======
 		div = "<div class='comment' id='"+kommentarid+"'><b>"+namn+":</b> "+text
 				+"<p class='commentdate'>"+tabort+tidsstampel+"</p>"
 				+"</div>";
@@ -147,7 +139,6 @@
 				+"<hr class='news'/>"
 				+"</div>";
 		$("#newsfeed").append(div);
->>>>>>> Nyhetsflödet är halvgjort. Dvs, visas lite konstigt, men läses bra från en xml-fil
 	}
 		
 	$('#commentinput').focus(function() {
