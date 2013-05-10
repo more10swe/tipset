@@ -117,6 +117,7 @@ div#menu
 	-webkit-box-shadow: 5px 5px 5px rgba(0,0,0,0.3);
 	-moz-box-shadow: 5px 5px 5px rgba(0,0,0,0.3);
 	box-shadow: 5px 5px 5px rgba(0,0,0,0.3);
+	background-image: url('../images/menu_bg.png');
 }
 
 div.menubox
@@ -124,7 +125,6 @@ div.menubox
 	background:#CCEBCC;
 	-moz-border-radius: 15px;
 	border-radius: 15px;
-	background-image: url('../images/menu_bg.png');
 }
 
 div#maincontent
@@ -170,8 +170,8 @@ div#standings
 	background: #D1B2D1;
 	-moz-border-radius: 15px;
 	border-radius: 15px;
-	background: purple;
-	overflow-y: scroll;
+	background: #D1B2D1;
+	overflow-y: auto;
 }
 
 div#footer
@@ -407,7 +407,7 @@ td, th
 .ministandingstablerow:hover
 {
 	font-weight: bold;
-	color: rgba(26,119,39,0.8);
+	color: #FFFFFF;
 	cursor: default;
 	text-shadow: 2px 2px 3px #000000;
 }
