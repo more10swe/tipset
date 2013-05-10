@@ -43,13 +43,21 @@ while ($kollapoang_row = mysqli_fetch_assoc($kollapoang))
 		$totalpoang = 0;
 		$antalratt = 0;
 	}
-	$totalpoang = $totalpoang + $kollapoang_row['POANG'];
+
+	
 	if($kollapoang_row['POANG']>0)
 	{
+		$totalpoang = $totalpoang + $kollapoang_row['POANG'];
 		$antalratt = $antalratt + 1;
 	}
 }
-
+//För den siste i raden av tippar-id:n!
+mysqli_real_query($connection, "UPDATE TIPPARE SET TOTALPOANG='$totalpoang', ANTALRATT='$antalratt' WHERE `TIPPAR-ID`='$nuvarande_anv'");
+if($nuvarande_anv==$_SESSION['tipparid'])
+{
+	$_SESSION['totalpoang'] = $totalpoang; // Sparar den aktuelle användarens totalpoäng!
+	$_SESSION['antalratt'] = $antalratt; // Sparar den aktuelle användarens antal rätt!
+}
 
 /*
 Slut på spara poängen!
@@ -78,6 +86,7 @@ Slut på spara poängen!
 		<link href='http://fonts.googleapis.com/css?family=Oranienbaum&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 		
         <script src="../js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script> <!-- Lite importerat javascript. -->
+        <script src="../js/vendor/bootstrap.js"></script> <!-- Bootstrap-javascript. -->
 
 		<link href="../css/trontastic/jquery-ui-1.10.2.custom.css" rel="stylesheet"><!-- Ett jQuery-tema som jag laddade ner. Coolt. -->
 
@@ -87,13 +96,14 @@ Slut på spara poängen!
 		<link rel="stylesheet" href="../custom/main.css"> <!-- Den personliga CSSen. -->
 
 		<script src="../custom/main.js"></script> <!-- Personliga javascript. -->
+		
 	</head>
 	
 	<body>
 		<div id="all">
 			<div id="content">
 				<div id="header"><h1>VM-tipset 2014</h1></div>
-				<div id="menu"><button class="btn btn-info menubutton" onclick="getPage('start.php')">Hem &nbsp; <i class="icon-home"></i></button><button class="btn btn-info menubutton" onclick="getPage('tips.php')">Mitt tips &nbsp; <i class="icon-pencil"></i></button><button class="btn btn-info menubutton" onclick="getPage('table.php')">Tabell &nbsp; <i class="icon-list-alt"></i></button></div>
+				<div id="menu"><button class="btn btn-info menubutton" onclick="getPage('start.php','nej')">Hem &nbsp; <i class="icon-home"></i></button><button class="btn btn-info menubutton" onclick="getPage('tips.php','nej')">Mitt tips &nbsp; <i class="icon-pencil"></i></button><button class="btn btn-info menubutton" onclick="getPage('table.php','nej')">Tabell &nbsp; <i class="icon-list-alt"></i></button></div>
 				<div id="maincontent">
 				</div>
 			</div>
@@ -107,7 +117,7 @@ Slut på spara poängen!
 		//DET HÄR ÄR KOD FÖR ATT LADDA OM DEN SIDA SOM MAN TITTADE PÅ. DET ÄR IRRITERANDE ATT HAMNA PÅ STARTSIDAN HELA TIDEN!
 			if (isset($_SESSION['sida'])) 
 			{
-				print("<script>getPage('" . $_SESSION['sida'] . "');</script>");
+				print("<script>getPage('" . $_SESSION['sida'] . "','ja');</script>");
 			}
 		?>
 	</body>

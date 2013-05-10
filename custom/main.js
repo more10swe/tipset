@@ -56,18 +56,33 @@ function getXMLHttp() {
 	return xmlhttp;
 }
 
-function getPage(url) {
-	xmlhttp1=getXMLHttp();
-	xmlhttp1.open("GET",url,true); //+"?ver="+randomVer
-	xmlhttp1.setRequestHeader("If-Modified-Since", "Fri, 31 Dec 1999 23:59:59 GMT");
-	xmlhttp1.onreadystatechange = updateInfo;
-	xmlhttp1.send(null); 
+function getPage(url,initialize) {
+	if (initialize=="nej")
+	{
+		$("#maincontent").fadeOut("fast", function()
+			{
+				xmlhttp1=getXMLHttp();
+				xmlhttp1.open("GET",url,true); //+"?ver="+randomVer
+				xmlhttp1.setRequestHeader("If-Modified-Since", "Fri, 31 Dec 1999 23:59:59 GMT");
+				xmlhttp1.onreadystatechange = updateInfo;
+				xmlhttp1.send(null);
+			});
+	}
+	else if (initialize=="ja")
+	{
+		xmlhttp1=getXMLHttp();
+		xmlhttp1.open("GET",url,true); //+"?ver="+randomVer
+		xmlhttp1.setRequestHeader("If-Modified-Since", "Fri, 31 Dec 1999 23:59:59 GMT");
+		xmlhttp1.onreadystatechange = updateInfo;
+		xmlhttp1.send(null);
+	}
+	 
 }
 
 function updateInfo() {
         if (xmlhttp1.readyState == 4) {
               var response = xmlhttp1.responseText;
-              $("#maincontent").html(response);
+              $("#maincontent").html(response).fadeIn("fast");
         }
 }
 

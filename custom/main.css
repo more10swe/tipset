@@ -60,7 +60,7 @@ div#content
 	margin-bottom: 65px;
 	width: 1200px;
 	height: 100%;
-	background: aqua;
+	background: none; /* tidigare aqua */
 }
 
 div#header
@@ -105,7 +105,8 @@ div#discussion
 	width: 360px;
 	margin-left: 500px;
 	height: 530px;
-	background: white;	
+	background: white;
+	overflow-y: scroll;
 }
 
 div#standings
@@ -130,13 +131,19 @@ div#footer
 	clear: both;
 }
 
-
 div.comment
 {
 	position: relative;
 	padding: 5px;
 	background: #E6E6E6;
 	margin-bottom: 5px;
+}
+
+div#betdiv
+{
+	overflow-y: scroll;
+	width: 100%;
+	height: 100%;
 }
 
 #commentinput
@@ -149,6 +156,7 @@ div.comment
 {
 }
 
+<<<<<<< HEAD
 div.newsheading
 {
 	position:absolute;
@@ -218,6 +226,17 @@ hr.news
 		rgb(255,255,255) 100%
 	);
 }
+=======
+div#loadingoverlay
+{ 
+    display:none; 
+    position:absolute; 
+    background:none; 
+}
+
+
+
+>>>>>>> Lite mer grafiskt lull-lull men även matcherna på tips-sidan i rätt ordning.
 
 /* rubriker och texter
 ----------------------------------*/
@@ -306,6 +325,11 @@ p.commentdate
 	margin-right: 60px;
 }
 
+img#loading
+{ 
+    position:absolute;
+}
+
 /* tabellmanipulation
 ----------------------------------*/
 
@@ -313,6 +337,21 @@ td, th
 {
 	border: 0px solid black;
 	background-color: none;
+}
+
+#ministandingstable
+{
+	font-family: "Courier New";
+	font-size: 12pt;
+	text-align: center;
+	width: 100%;
+}
+
+.ministandingstablerow:hover
+{
+	font-weight: bold;
+	color: white;
+	cursor: default;
 }
 
 #bettable

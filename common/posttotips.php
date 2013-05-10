@@ -65,7 +65,7 @@ foreach ($oddsfeed->fd->sports->sport->leagues->league->events->event as $match)
 print $tipparid . " " . $matchid . " " . $hemmamal_t . " " . $bortamal_t . " " . $odds;
 
 // två sql-satser
-$queryinsert = "INSERT INTO TIPS VALUES ('$tipparid','$matchid','$hemmamal_t','$bortamal_t','$odds')";
+$queryinsert = "INSERT INTO TIPS VALUES ('$tipparid','$matchid','$hemmamal_t','$bortamal_t','$odds','-1')";
 $queryupdate = "UPDATE TIPS SET HEMMAMAL_T='$hemmamal_t', BORTAMAL_T='$bortamal_t', ODDS='$odds' WHERE `TIPPAR-ID`='$tipparid' AND `MATCH-ID`='$matchid'";
 
 

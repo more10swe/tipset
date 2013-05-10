@@ -18,8 +18,8 @@ $filename = "datan.xml";
 $oddsfeed = simplexml_load_file($filename);
 $noresult = 999;
 
-if(is_array($oddsfeed->fd->sports->sport->leagues->league->events->event))
-{
+//if(is_array($oddsfeed->fd->sports->sport->leagues->league->events->event))
+//{
 	foreach ($oddsfeed->fd->sports->sport->leagues->league->events->event as $match) //Stor slinga som stoppar in alla matcherna i databasen!
 	{
 
@@ -63,7 +63,7 @@ if(is_array($oddsfeed->fd->sports->sport->leagues->league->events->event))
 				//or die();
 		}
 	}
-}
+//}
 
 /* close connection */
 mysqli_close($connection);

@@ -6,22 +6,42 @@
 
 <script src="../js/jquery-1.9.1.js"></script> <!-- Själva jQuery. -->
 <script src="../js/jquery-ui-1.10.2.custom.js"></script> <!-- jQuery UI. -->
+<script src="../js/jquery.alphanumeric.pack.js"></script> <!-- För att förhindra dåliga tecken i inputsen -->
 <script type="text/javascript">
+
+
 	function insertLine(tid,hemma,borta,tips,matchid,odds,startat,resultat,tecken,poang)
 	{
 		res="x-x";
 		
 		aendra="<input class='nyttips' id='"+matchid+"' type='text'></input>";
+
+
 		//Här kommer en if-sats som kollar om matchen har startat eller ej!
 		if(startat=="ja")
 		{
-			//Script som placerar in rätt värde i rätt td för startade matcher
-			$("#bettable").append("<tr><td>"+tid+"</td><td>"+hemma+"</td><td>-</td><td>"+borta+"</td><td>"+resultat+"</td><td>"+tecken+"</td><td>"+tips+"</td><td>"+poang+"</td><td></td></tr>");
+			//Börjar med att styla poängen i rött eller grönt beroende på utdelning
+			if (poang>0)
+			{
+				poang2="<span class='badge badge-success'>"+poang+"</span>";
+			}
+			else
+			{
+				poang2="<span class='badge badge-important'>"+poang+"</span>";
+			}
+
+			//Script som placerar in rätt värde i rätt td för startade matcher <span class="badge badge-success">2</span>
+			$("#bettable").append("<tr><td>"+tid+"</td><td>"+hemma+"</td><td>-</td><td>"+borta+"</td><td>"+resultat+"</td><td>"+tecken+"</td><td>"+tips+"</td><td>"+poang2+"</td><td></td></tr>");
+
 		}
 		else if(startat=="nej")
 		{
 			//Script som placerar in rätt värde i rätt td för ickestartade matcher
 			$("#bettable").append("<tr><td>"+tid+"</td><td>"+hemma+"</td><td>-</td><td>"+borta+"</td><td>"+res+"</td><td>"+tecken+"</td><td>"+tips+"</td><td>("+odds+")</td><td>"+aendra+"</td></tr>");
+
+			$(".nyttips").alphanumeric({allow:"-"});
+
+
 		}
 		
 	}
@@ -36,8 +56,21 @@
 		content: tooltipoutput });	
 	}
 
+	function wrongResultFormat()
+	{
+		$("#sparatips").before("<div id='wrongResultAlert' class='alert alert-error'><a id='closeResultAlert' class='close' data-dismiss='wrongResultAlert'>&times;</a><strong>Nu blev det fel!</strong> Resultatet skall vara på formatet X-Y! ex) 2-0.</div>");
+		$("#wrongResultAlert").hide();
+		$("#wrongResultAlert").show('fast');
+		$("#closeResultAlert").click(function ()
+		{
+			$("#wrongResultAlert").hide('fast');
+		});
+
+	}
+
 	$("#sparatips").click(function()
 	{
+		var errorAlertCounter = 0;
 		$("input").each(function()
 		{
 			if($(this).val()!="")
@@ -56,7 +89,12 @@
 				} 
 				catch(e) 
 				{
-					alert("Resultatet skall vara på formatet X-Y! ex) 2-0")
+					if(errorAlertCounter>0)
+					{
+						wrongResultFormat();
+					}
+					errorAlertCounter=errorAlertCounter+1;
+					
 				}
 				finally
 				{
@@ -77,14 +115,39 @@
 						*/
 
 						$.post("../common/posttotips.php", { matchid: inputid, hemmamal: hemma, bortamal: borta } ).error(function() {alert("error");});    
-					}
 						
+						//Medan sidan postar och väntar 1,5 sekunder på att ladda om visas en laddningsbild
+						$bet = $("#betdiv");
+
+						$("#loadingoverlay").css({
+						  top: 0,
+						  width: $bet.outerWidth(),
+						  height: $bet.outerHeight()
+						});
+
+						$("#loading").css({
+						  top:  200,
+						  left: ($bet.width() / 2)
+						});
+
+						$("#loadingoverlay").fadeIn();
+						
+						setTimeout(function() 
+							{
+								$("#loadingoverlay").fadeOut("fast");
+								getPage("tips.php","ja");
+							}
+							,1500);
+						
+						//Laddar om tipssidan
+						
+					}
 				}
-				
 			}
 		});
-		getPage("tips.php");
 	});
+
+	
 </script>
 
 <?php
@@ -101,12 +164,14 @@
 	    echo "Failed to connect to MySQL: " . mysqli_connect_error();
 	}
 
-	$query = "SELECT * FROM MATCHER";
+	
+	$query = "SELECT * FROM MATCHER ORDER BY `MATCH-ID` ASC";
 
 	if ($result = mysqli_query($connection, $query)) {
 
 	    /* fetch associative array */
-	    while ($row = mysqli_fetch_assoc($result)) {
+	    while ($row = mysqli_fetch_assoc($result)) 
+	    {
 	    	$matchid = $row['MATCH-ID'];
 	    	$tipparid = $_SESSION['tipparid'];
 	        $query = "SELECT * FROM TIPS WHERE `MATCH-ID`=$matchid AND `TIPPAR-ID`=$tipparid";
@@ -206,6 +271,7 @@
 			{
 				$startad = "nej";
 				$tecken = "";
+				$poang = "-1";
 			}
 			//Lägger till två timmar på avsparkstiden
 			date_modify($avspark, '+2 hours');
@@ -216,26 +282,29 @@
 			//Nu ska vi få in de rätta oddsen i tooltipen!
 			$filename = "../common/datan.xml";
 			$oddsfeed = simplexml_load_file($filename);
-			if(is_array($oddsfeed->fd->sports->sport->leagues->league->events->event))
+
+			foreach ($oddsfeed->fd->sports->sport->leagues->league->events->event as $match) //Slinga som letar upp alla oddsen till matcherna för användning i tooltipen!
 			{
-				foreach ($oddsfeed->fd->sports->sport->leagues->league->events->event as $match) //Slinga som letar upp alla oddsen till matcherna för användning i tooltipen!
+				if ($match->id == $matchid) 
 				{
-					if ($match->id == $matchid) 
+					foreach ($match->periods->period as $oddsfeed2) 
 					{
-						foreach ($match->periods->period as $oddsfeed2) 
+						if ($oddsfeed2->moneyLine->homePrice != "") 
 						{
-							if ($oddsfeed2->moneyLine->homePrice != "") 
-							{
-								$odds1 = $oddsfeed2->moneyLine->homePrice;
-								$oddsx = $oddsfeed2->moneyLine->drawPrice;
-								$odds2 = $oddsfeed2->moneyLine->awayPrice;
-							}
+							$odds1 = $oddsfeed2->moneyLine->homePrice;
+							$oddsx = $oddsfeed2->moneyLine->drawPrice;
+							$odds2 = $oddsfeed2->moneyLine->awayPrice;
 						}
 					}
+					if($startad=="nej")
+					{
+						//Skriver ut de rätta oddsen i tooltipen
+						echo "<script>addToolTip('" . $matchid . "','" . $odds1 . "','" . $oddsx . "','" . $odds2 . "')</script>";	
+					}
 				}
-				//Skriver ut de rätta oddsen i tooltipen
-				echo "<script>addToolTip('" . $matchid . "','" . $odds1 . "','" . $oddsx . "','" . $odds2 . "')</script>";
 			}
+			
+			
 	    }
 
 	    /* free result set */
@@ -244,10 +313,6 @@
 
 	/* close connection */
 	mysqli_close($connection);
-
-
-	//Skriver ut vad klockan är nu
-	print "klockan är nu: " . date('H:i:s') . " och det är följande datum: " . date('Y-m-d');
 
 ?>
 
@@ -260,36 +325,40 @@
 		content: tooltipoutput });	
 </script>
 -->
-
-<button id="sparatips" class="btn btn-large btn-success">Spara Tips &nbsp; <i class="icon-ok"></i></button>
-<table id="bettable">
-	<tr id="bettablehead">
-		<th>
-			Deadline / Avspark
-		</th>
-		<th>
-			Hemmalag
-		</th>
-		<th>
-			
-		</th>
-		<th>
-			Bortalag
-		</th>
-		<th>
-			Resultat
-		</th>
-		<th>
-			Tecken
-		</th>
-		<th>
-			Mitt Tips
-		</th>
-		<th>
-			Poäng/Odds
-		</th>
-		<th>
-			Ändra Tips
-		</th>
-	</tr>
-</table>
+<div id="betdiv">
+	<button id="sparatips" class="btn btn-large btn-success">Spara Tips &nbsp; <i class="icon-ok"></i></button>
+	<table id="bettable">
+		<tr id="bettablehead">
+			<th>
+				Deadline / Avspark
+			</th>
+			<th>
+				Hemmalag
+			</th>
+			<th>
+				
+			</th>
+			<th>
+				Bortalag
+			</th>
+			<th>
+				Resultat
+			</th>
+			<th>
+				Tecken
+			</th>
+			<th>
+				Mitt Tips
+			</th>
+			<th>
+				Poäng/Odds
+			</th>
+			<th>
+				Ändra Tips
+			</th>
+		</tr>
+	</table>
+</div>
+<div id="loadingoverlay">
+    <img src="../images/bigrotation2.gif" id="loading" />
+</div>

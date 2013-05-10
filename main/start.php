@@ -1,8 +1,12 @@
 <?php
 	session_start(); // NEVER forget this!
 	$_SESSION['sida'] = "start.php"; //Kommer ihåg vilken sida man var på (om man vill refresha).
+	header("Content-type:text/html;charset=utf-8");
 ?>
+
+
 <script type="text/javascript">
+<<<<<<< HEAD
 	function ajaxLoadNews(){
 		var ajaxRequest = getXMLHttp();
 		ajaxRequest.onreadystatechange = function(){
@@ -23,6 +27,12 @@
 		ajaxRequest.open("GET", "../custom/news.xml", true);
 		//ajaxRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		ajaxRequest.send();
+=======
+	function insertLine(plats,namn,antalratt,poang)
+	{
+		//Script som placerar in rätt värde i rätt td för startade matcher
+		$("#ministandingstable").append("<tr class='ministandingstablerow'><td>"+plats+"</td><td style='font-size:9pt; font-weight:bold;'>"+namn+"</td><td>"+antalratt+"</td><td><b>"+poang+"</b></td></tr>");
+>>>>>>> Lite mer grafiskt lull-lull men även matcherna på tips-sidan i rätt ordning.
 	}
 
 	function ajaxLoadComments(){
@@ -171,7 +181,50 @@
 	</div>
 	<div id="comments"></div>
 </div>
+
+<?php
+	/*
+	Vill hämta namn och poäng för mini-tabellen. Kanske också antal rätt.
+	*/
+
+	//inkluderar hemliga saker
+	include '../secretstuff.php';
+
+	//För att förtydliga vad som skickas in i connect-funktionen
+	$dbname = $user;
+
+	// koppla upp mot databasen
+	$connection = mysqli_connect($link, $user, $pass, $dbname);
+	if (mysqli_connect_errno()) {
+	    echo "Failed to connect to MySQL: " . mysqli_connect_error();
+	}
+	$kollapoang = mysqli_query($connection, "SELECT NAMN, TOTALPOANG, ANTALRATT FROM TIPPARE ORDER BY TOTALPOANG DESC");
+	$plats = 0;
+
+	while ($kollapoang_row = mysqli_fetch_assoc($kollapoang))
+	{
+		$plats = $plats + 1;
+		
+		echo "<script>insertLine('" . $plats . "','" . utf8_encode($kollapoang_row['NAMN']) . "','" . $kollapoang_row['ANTALRATT'] . "','" . $kollapoang_row['TOTALPOANG'] . "')</script>";
+	}
+?>
+
 <div id="standings">
-	<h2>TABELL<br />
-	(Simplare tabell)</h2>
+	<h2>Mini-tabell</h2>
+	<table id="ministandingstable">
+		<tr id="ministandingstablehead">
+			<th>
+				Pl.
+			</th>
+			<th>
+				Namn
+			</th>
+			<th>
+				Rätt
+			</th>
+			<th>
+				Poäng
+			</th>
+		</tr>
+	</table>
 </div>
