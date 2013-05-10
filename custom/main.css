@@ -95,7 +95,7 @@ div#newsfeed
 	padding: 5px;
 	width: 480px;
 	height: 530px;
-	background: orange;
+	background: white;
 }
 
 div#discussion
@@ -149,6 +149,78 @@ div.comment
 {
 }
 
+<<<<<<< HEAD
+=======
+div.newsheading
+{
+	position:absolute;
+	margin-top:150px;
+	padding: 5px;
+}
+
+h1.news
+{
+	font-size:30px;
+	text-align: left;
+	display:inline;
+    background-color:#E6E6E6;
+	line-height: 1.2em;
+}
+
+div.news
+{
+	background-color:white;
+	margin-bottom:40px;
+}
+
+div.newstext
+{
+	padding:20px 5px 20px 5px;
+}
+
+div.newsimg
+{
+	position:relative;
+	width:100%;
+	height:200px;
+	background-position:center;
+	background-repeat: no-repeat;
+	background-color: #EEE;
+	background-size: cover;
+}
+
+p.news
+{
+	font-size:12px;
+	margin-bottom:40px;
+}
+
+hr.news
+{
+	text-align: center;
+	margin: 0px auto 0px auto;	
+	width: 60%; 
+	height: 1px;
+	border: none;
+	background: #ddd;
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		right bottom,
+		color-stop(0, rgb(255,255,255)),
+		color-stop(0.1, rgb(221,221,221)),
+		color-stop(0.9, rgb(221,221,221)),
+		color-stop(1, rgb(255,255,255))
+	);
+	background-image: -moz-linear-gradient(
+		left center,
+		rgb(255,255,255) 0%,
+		rgb(221,221,221) 10%,
+		rgb(221,221,221) 90%,
+		rgb(255,255,255) 100%
+	);
+}
+>>>>>>> Nyhetsflödet är halvgjort. Dvs, visas lite konstigt, men läses bra från en xml-fil
 
 /* rubriker och texter
 ----------------------------------*/
@@ -197,18 +269,18 @@ label
 h1
 {
 	text-align: center;
-	font-family: 'Advent Pro', sans-serif;
+	font-family: 'Oranienbaum', serif;
 	font-size: 48px;
 }
 
 h2
 {
 	text-align: center;
-	font-family: 'Advent Pro', sans-serif;
+	font-family: 'Oranienbaum', serif;
 	font-size: 28px;
 }
 
-p#commentdate
+p.commentdate
 {
 	margin: 0px;
 	text-align: right;
