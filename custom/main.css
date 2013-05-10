@@ -114,7 +114,6 @@ div#menu
 	height: 50px;
 	background: white;
 	text-align: center;
-<<<<<<< HEAD
 	-webkit-box-shadow: 5px 5px 5px rgba(0,0,0,0.3);
 	-moz-box-shadow: 5px 5px 5px rgba(0,0,0,0.3);
 	box-shadow: 5px 5px 5px rgba(0,0,0,0.3);
@@ -125,9 +124,7 @@ div.menubox
 	background:#CCEBCC;
 	-moz-border-radius: 15px;
 	border-radius: 15px;
-=======
 	background-image: url('../images/menu_bg.png');
->>>>>>> Lägger till mina ändringar på main.css
 }
 
 div#maincontent
@@ -147,11 +144,8 @@ div#newsfeed
 	padding: 5px;
 	width: 480px;
 	height: 530px;
-<<<<<<< HEAD
 	background: none;
-=======
 	background: white;
->>>>>>> Lägger till mina ändringar på main.css
 	overflow-y: scroll;
 }
 
@@ -173,14 +167,11 @@ div#standings
 	width: 285px;
 	margin-left: 880px;
 	height: 530px;
-<<<<<<< HEAD
 	background: #D1B2D1;
 	-moz-border-radius: 15px;
 	border-radius: 15px;
-=======
 	background: purple;
 	overflow-y: scroll;
->>>>>>> Lägger till mina ändringar på main.css
 }
 
 div#footer
