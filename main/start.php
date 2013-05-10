@@ -6,7 +6,7 @@
 
 
 <script type="text/javascript">
-<<<<<<< HEAD
+
 	function ajaxLoadNews(){
 		var ajaxRequest = getXMLHttp();
 		ajaxRequest.onreadystatechange = function(){
@@ -27,12 +27,12 @@
 		ajaxRequest.open("GET", "../custom/news.xml", true);
 		//ajaxRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		ajaxRequest.send();
-=======
+
 	function insertLine(plats,namn,antalratt,poang)
 	{
 		//Script som placerar in rätt värde i rätt td för startade matcher
 		$("#ministandingstable").append("<tr class='ministandingstablerow'><td>"+plats+"</td><td style='font-size:9pt; font-weight:bold;'>"+namn+"</td><td>"+antalratt+"</td><td><b>"+poang+"</b></td></tr>");
->>>>>>> Lite mer grafiskt lull-lull men även matcherna på tips-sidan i rätt ordning.
+
 	}
 
 	function ajaxLoadComments(){
@@ -102,13 +102,6 @@
 		tabort = "";
 		if(tipparid == kommentator){
 			tabort = "<a href='JavaScript:ajaxRemoveComment("+kommentarid+")'>Ta bort</a> - ";
-		}
-	}
-
-	function insertComment(namn, text, tidsstampel, kommentator, tipparid, kommentarid, append){			
-		tabort = "";
-		if(tipparid == kommentator){
-			tabort = "<a href='JavaScript:removeComment("+kommentarid+")'>Ta bort</a> - ";
 		}
 		
 		div = "<div class='comment' id='"+kommentarid+"'><b>"+namn+":</b> "+text
