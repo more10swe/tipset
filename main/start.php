@@ -27,6 +27,7 @@
 		ajaxRequest.open("GET", "../custom/news.xml", true);
 		//ajaxRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		ajaxRequest.send();
+	}
 
 	function insertLine(plats,namn,antalratt,poang)
 	{
