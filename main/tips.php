@@ -7,6 +7,7 @@
 <script src="../js/jquery-1.9.1.js"></script> <!-- Själva jQuery. -->
 <script src="../js/jquery-ui-1.10.2.custom.js"></script> <!-- jQuery UI. -->
 <script src="../js/jquery.alphanumeric.pack.js"></script> <!-- För att förhindra dåliga tecken i inputsen -->
+<script src="../js/spin.js"></script> <!-- Spin-hjul -->
 <script type="text/javascript">
 
 
@@ -101,45 +102,39 @@
 					if(korrektformat)
 					{
 						inputid = $(this).attr("id");
-						//var urltopost = "matchid=" + inputid + "&hemmamal=" + hemmamal + "&bortamal=" + bortamal;
-						
-						/* 
-						$.ajax({  
-						  type: "POST",  
-						  url: "http://www.masundh.se/maudambet/common/posttotips.php",  
-						  data: urltopost,  
-						  success: function() { 
-						  	alert("postade nog nu!");
-						  }  
-						});
-						*/
 
 						$.post("../common/posttotips.php", { matchid: inputid, hemmamal: hemma, bortamal: borta } ).error(function() {alert("error");});    
 						
-						//Medan sidan postar och väntar 1,5 sekunder på att ladda om visas en laddningsbild
-						$bet = $("#betdiv");
+						var opts = {
+							lines: 13, // The number of lines to draw
+							length: 39, // The length of each line
+							width: 15, // The line thickness
+							radius: 41, // The radius of the inner circle
+							corners: 1, // Corner roundness (0..1)
+							rotate: 0, // The rotation offset
+							direction: 1, // 1: clockwise, -1: counterclockwise
+							color: '#000', // #rgb or #rrggbb
+							speed: 1, // Rounds per second
+							trail: 65, // Afterglow percentage
+							shadow: true, // Whether to render a shadow
+							hwaccel: false, // Whether to use hardware acceleration
+							className: 'spinner', // The CSS class to assign to the spinner
+							zIndex: 2e9, // The z-index (defaults to 2000000000)
+							top: 'auto', // Top position relative to parent in px
+							left: 'auto' // Left position relative to parent in px
+						};
+						var target = document.getElementById('betdiv');
+						var spinner = new Spinner(opts).spin(target);
 
-						$("#loadingoverlay").css({
-						  top: 0,
-						  width: $bet.outerWidth(),
-						  height: $bet.outerHeight()
-						});
-
-						$("#loading").css({
-						  top:  200,
-						  left: ($bet.width() / 2)
-						});
-
-						$("#loadingoverlay").fadeIn();
-						
 						setTimeout(function() 
 							{
-								$("#loadingoverlay").fadeOut("fast");
+								spinner.stop();
+								//Laddar om tipssidan
 								getPage("tips.php","ja");
 							}
-							,1500);
+							,1800);
 						
-						//Laddar om tipssidan
+						
 						
 					}
 				}
@@ -316,15 +311,6 @@
 
 ?>
 
-<!--
-<script type="text/javascript">
-	var tooltipoutput = "Här skulle man kunna ha oddsen! <br />1-0: 5,23 | 0-0: 65,12 | 0-1: 9,23<br />2-1: 25,23 | 1-1: 25,42 | 0-2: 19,23<br />2-0: 35,23 | 2-2: 15,41 | 0-3: 29,23<br />osv..";
-	$(".nyttips").tooltip({ 
-		track: true,
-		items: ".nyttips",
-		content: tooltipoutput });	
-</script>
--->
 <div id="betdiv">
 	<button id="sparatips" class="btn btn-large btn-success">Spara Tips &nbsp; <i class="icon-ok"></i></button>
 	<table id="bettable">
@@ -358,7 +344,4 @@
 			</th>
 		</tr>
 	</table>
-</div>
-<div id="loadingoverlay">
-    <img src="../images/bigrotation2.gif" id="loading" />
 </div>

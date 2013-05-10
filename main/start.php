@@ -106,17 +106,6 @@
 		}
 		
 		div = "<div class='comment' id='"+kommentarid+"'><b>"+namn+":</b> "+text
-				+"<p id='commentdate'>"+tabort+tidsstampel+"</p>"
-				+"</div>";
-		if(append==true){
-			$("#comments").append(div);
-		}
-		else if (append==false){
-			$("#comments").prepend(div);
-			$("#"+kommentarid).hide();
-			$("#"+kommentarid).show('fast');
-		}
-		div = "<div class='comment' id='"+kommentarid+"'><b>"+namn+":</b> "+text
 				+"<p class='commentdate'>"+tabort+tidsstampel+"</p>"
 				+"</div>";
 		if(append==true){

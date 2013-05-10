@@ -16,29 +16,6 @@ $(function() {
 
 });
 
-function xml_parse(vad)
-{
-	var randomVer = Math.floor((Math.random()*100)+1);
-	$.ajax({
-	type: "GET",
-	url: "../common/datan.xml?ver="+randomVer,
-	success: function (xml)
-		{
-			//find every Tutorial and print the author
-			$("#xmlrespons").empty();
-			$(xml).find(vad).each(function()
-			{	
-				
-				$("#xmlrespons").append($(this).text() + "<br />");
-			});
-		},
-	error: function(er){
-        $("#xmlrespons").html('<p>error</p>');
-            alert(er);
-	    }
-	});
-}
-
 
 function getXMLHttp() {
 	var xmlhttp;
