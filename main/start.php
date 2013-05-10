@@ -193,7 +193,7 @@
 ?>
 
 <div id="standings">
-	<h2>Mini-tabell</h2>
+	<h2 class="standings">Ställning just nu</h2>
 	<table id="ministandingstable">
 		<tr id="ministandingstablehead">
 			<th>

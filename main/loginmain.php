@@ -20,6 +20,8 @@
 
 		<link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700' rel='stylesheet' type='text/css'><!-- Custom-font -->
 
+		<link href='http://fonts.googleapis.com/css?family=Oranienbaum&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+		
 		<link rel="stylesheet" href="../custom/main.css"> <!-- Den personliga CSSen. -->
 
 		<script src="../custom/main.js"></script> <!-- Personliga javascript. -->
@@ -27,22 +29,27 @@
 	<body>
 		<div id="all">
 			<div id="content">
-				<div id="header"><h1 class="ui-accordion-header">Logga in på Tipssidan</h1></div>
+				<div id="header">
+					<h1 class="loginh1">Logga in på Tipssidan</h1>
+				</div>
 				<div id="logincontent">
-				<form action="checkloginform.php" method="post">
+					
+					<div class="loginbox">						
+						<form action="checkloginform.php" method="post">
 
-						<div id="loginleft">
-							<label for="anvandarnamn">Användarnamn: </label><br />
-							<label for="losenord">Lösenord: </label>
-						</div>
-						<div id="loginright">
-							<input type="text" name="anvandarnamn" /><br />
-							<input type="password" name="losenord" /><br /><br />
-						
-							<input class="btn btn-large" style="float:right;" type="submit" value="Logga in!" /><br />
-						</div>
-				
-				</form>
+							<div id="loginleft">
+								<label for="anvandarnamn">Användarnamn: </label><br />
+								<label for="losenord">Lösenord: </label>
+							</div>
+							<div id="loginright">
+								<input type="text" name="anvandarnamn" /><br />
+								<input type="password" name="losenord" /><br /><br />
+							
+								<input class="btn btn-large" style="float:right;" type="submit" value="Logga in!" /><br />
+							</div>				
+						</form>
+					</div>
+				</div>
 			</div>
 		</div>
 	</body>

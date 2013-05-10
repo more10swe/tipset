@@ -103,7 +103,11 @@ Slut på spara poängen!
 		<div id="all">
 			<div id="content">
 				<div id="header"><h1>VM-tipset 2014</h1></div>
-				<div id="menu"><button class="btn btn-info menubutton" onclick="getPage('start.php','nej')">Hem &nbsp; <i class="icon-home"></i></button><button class="btn btn-info menubutton" onclick="getPage('tips.php','nej')">Mitt tips &nbsp; <i class="icon-pencil"></i></button><button class="btn btn-info menubutton" onclick="getPage('table.php','nej')">Tabell &nbsp; <i class="icon-list-alt"></i></button></div>
+				<div id="menu">
+					<div class="menubox">
+						<button class="btn btn-info menubutton" onclick="getPage('start.php','nej')">Hem &nbsp; <i class="icon-home"></i></button><button class="btn btn-info menubutton" onclick="getPage('tips.php','nej')">Mitt tips &nbsp; <i class="icon-pencil"></i></button><button class="btn btn-info menubutton" onclick="getPage('table.php','nej')">Tabell &nbsp; <i class="icon-list-alt"></i></button>
+					</div>
+				</div>
 				<div id="maincontent">
 				</div>
 			</div>
