@@ -114,6 +114,7 @@ div#menu
 	height: 50px;
 	background: white;
 	text-align: center;
+<<<<<<< HEAD
 	-webkit-box-shadow: 5px 5px 5px rgba(0,0,0,0.3);
 	-moz-box-shadow: 5px 5px 5px rgba(0,0,0,0.3);
 	box-shadow: 5px 5px 5px rgba(0,0,0,0.3);
@@ -124,6 +125,9 @@ div.menubox
 	background:#CCEBCC;
 	-moz-border-radius: 15px;
 	border-radius: 15px;
+=======
+	background-image: url('../images/menu_bg.png');
+>>>>>>> Lägger till mina ändringar på main.css
 }
 
 div#maincontent
@@ -143,7 +147,11 @@ div#newsfeed
 	padding: 5px;
 	width: 480px;
 	height: 530px;
+<<<<<<< HEAD
 	background: none;
+=======
+	background: white;
+>>>>>>> Lägger till mina ändringar på main.css
 	overflow-y: scroll;
 }
 
@@ -165,9 +173,14 @@ div#standings
 	width: 285px;
 	margin-left: 880px;
 	height: 530px;
+<<<<<<< HEAD
 	background: #D1B2D1;
 	-moz-border-radius: 15px;
 	border-radius: 15px;
+=======
+	background: purple;
+	overflow-y: scroll;
+>>>>>>> Lägger till mina ändringar på main.css
 }
 
 div#footer
@@ -281,13 +294,6 @@ hr.news
 		rgb(221,221,221) 90%,
 		rgb(255,255,255) 100%
 	);
-}
-
-div#loadingoverlay
-{ 
-    display:none; 
-    position:absolute; 
-    background:none; 
 }
 
 
@@ -410,8 +416,9 @@ td, th
 .ministandingstablerow:hover
 {
 	font-weight: bold;
-	color: white;
+	color: rgba(26,119,39,0.8);
 	cursor: default;
+	text-shadow: 2px 2px 3px #000000;
 }
 
 #bettable
@@ -437,3 +444,29 @@ input.nyttips
 	width: 50px;
 }
 
+/* scrollbar-manipulation
+----------------------------------*/
+
+/* bredd */
+::-webkit-scrollbar {
+    width: 12px;
+    padding: 5px;
+}
+ 
+/* scrollbar-bakgrund */
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+ 
+/* "dragsaken" */
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: rgba(26,119,39,0.8); 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+::-webkit-scrollbar-thumb:window-inactive {
+	background: rgba(26,119,39,0.3); 
+}
