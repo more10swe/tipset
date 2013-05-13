@@ -58,7 +58,7 @@ else if(isset($_POST['anvandarnamn']))
     mysqli_close($connection);
 
     die(
-      print '<html><head><meta http-equiv="Refresh" content="2; URL=index.php"></head><body>DU LOGGADE IN FÖRFAN!</body></html>'  //
+      print '<html><head><meta http-equiv="Refresh" content="0; URL=index.php"></head><body>DU LOGGADE IN!</body></html>'  //
     ); // Kill the script here so it doesn't show the login form after you are logged in!
     
 } // That bit of code logs you in! The "$_POST['submit']" bit is the submission of the form down below VV

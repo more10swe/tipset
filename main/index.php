@@ -7,9 +7,6 @@ if(!isset($_SESSION['inloggad']))
     die("Du får inte titta om du inte <a href='loginmain.php'>Loggar in</a>"); // Make sure they are logged in!
 } // What the !isset() code does, is check to see if the variable $_SESSION['loggedin'] is there, and if it isn't it kills the script telling the user to log in!
 
-/* 
-Här börjar uträkningen av totalpoäng som sedan sparas till databasen. 
-*/
 
 //inkluderar hemliga saker
 include '../secretstuff.php';
@@ -22,6 +19,133 @@ $connection = mysqli_connect($link, $user, $pass, $dbname);
 if (mysqli_connect_errno()) {
     echo "Failed to connect to MySQL: " . mysqli_connect_error();
 }
+
+
+/*
+Här vill vi räkna ut poänger för alla matcher och alla tippare!
+*/
+$tipparquery = "SELECT * FROM TIPPARE ORDER BY `TIPPAR-ID` ASC";
+
+if ($tipparquery2 = mysqli_query($connection, $tipparquery)) 
+{
+
+    /* fetch associative array */
+    while ($tipparquery3 = mysqli_fetch_assoc($tipparquery2)) 
+    {
+
+		$matchquery = "SELECT * FROM MATCHER ORDER BY `MATCH-ID` ASC";
+
+		if ($matchquery2 = mysqli_query($connection, $matchquery)) 
+		{
+
+		    /* fetch associative array */
+		    while ($matchquery3 = mysqli_fetch_assoc($matchquery2)) 
+		    {
+		    	$matchid = $matchquery3['MATCH-ID'];
+		    	$tipparid = $tipparquery3['TIPPAR-ID'];
+		        $tipsquery = "SELECT * FROM TIPS WHERE `MATCH-ID`=$matchid AND `TIPPAR-ID`=$tipparid";
+
+				if ($tipsquery2 = mysqli_query($connection, $tipsquery)) 
+				{
+
+				    /* fetch associative array */
+				    $tipsquery3 = mysqli_fetch_assoc($tipsquery2);
+				    
+				    /* free result set */
+				    mysqli_free_result($tipsquery2);
+				}
+
+				## Här bestäms om matchen har startat eller inte
+				## Jag är dock inte helt med på varför jämförelsen blir som den blir, det borde bli tvärtom..
+				$avspark = date_create($matchquery3['MATCHTID']);
+				$nutid = date_create("now");
+				if ($avspark<$nutid) 
+				{
+					$resultat_h = mysqli_query($connection, "SELECT HEMMAMAL FROM RESULTAT WHERE `MATCH-ID`=$matchid");
+					$res_answer = mysqli_fetch_assoc($resultat_h);
+					$res_h = $res_answer['HEMMAMAL'];
+
+					mysqli_free_result($resultat_h);
+
+					$resultat_b = mysqli_query($connection, "SELECT BORTAMAL FROM RESULTAT WHERE `MATCH-ID`=$matchid");
+					$res_answer = mysqli_fetch_assoc($resultat_b);				
+					$res_b = $res_answer['BORTAMAL'];
+
+					mysqli_free_result($resultat_b);
+
+					$finnspoang = "SELECT POANG FROM TIPS WHERE `MATCH-ID`=$matchid AND `TIPPAR-ID`=$tipparid";
+					$finnspoang2 = mysqli_query($connection, $finnspoang);
+					$finnspoang3 = mysqli_fetch_assoc($finnspoang2);
+
+					$poang = $finnspoang3['POANG'];
+					$ingenpoang = -1;
+
+
+					if($poang==$ingenpoang)
+					{
+						$hamtaodds = "SELECT ODDS FROM TIPS WHERE `MATCH-ID`=$matchid AND `TIPPAR-ID`=$tipparid";
+						$hamtaodds2 = mysqli_query($connection, $hamtaodds);
+						$hamtaodds3 = mysqli_fetch_assoc($hamtaodds2);
+						
+						$oddspoang = $hamtaodds3['ODDS'];
+						$nollpoang = 0;
+						$orapporterad = -1;
+
+						$sparapoang1 = "UPDATE TIPS SET POANG='$oddspoang' WHERE `MATCH-ID`='$matchid' AND `TIPPAR-ID`=$tipparid";
+						$sparapoang2 = "UPDATE TIPS SET POANG='$nollpoang' WHERE `MATCH-ID`='$matchid' AND `TIPPAR-ID`=$tipparid";
+						$sparapoang3 = "UPDATE TIPS SET POANG='$orapporterad' WHERE `MATCH-ID`='$matchid' AND `TIPPAR-ID`=$tipparid";
+						
+						if ($res_h==999 && $res_b==999) 
+						{
+							mysqli_real_query($connection, $sparapoang3);
+						}
+						else
+						{
+							if (($tipsquery3['HEMMAMAL_T']>$tipsquery3['BORTAMAL_T']) && ($res_h>$res_b)) 
+							{
+								//Spara 1a-odds
+								mysqli_real_query($connection, $sparapoang1);
+							}
+							elseif (($tipsquery3['HEMMAMAL_T']==$tipsquery3['BORTAMAL_T']) && ($res_h==$res_b)) 
+							{
+								// Spara X-odds
+								mysqli_real_query($connection, $sparapoang1);																
+							}
+							elseif (($tipsquery3['HEMMAMAL_T']<$tipsquery3['BORTAMAL_T']) && ($res_h<$res_b)) 
+							{
+								// Spara 2a-odds
+								mysqli_real_query($connection, $sparapoang1);
+							}
+							else
+							{
+								//Spara 0 poäng
+								mysqli_real_query($connection, $sparapoang2);
+							}
+						}
+		
+						/* free result set */
+						mysqli_free_result($hamtaodds2);
+					}
+					/* free result set */
+					mysqli_free_result($finnspoang2);
+				}					
+				
+		    }
+
+		    
+		}
+	}
+}
+/* free result set */
+mysqli_free_result($tipparquery2);
+
+
+
+
+/* 
+Här börjar uträkningen av totalpoäng som sedan sparas till databasen. 
+*/
+
 
 $kollapoang = mysqli_query($connection, "SELECT `TIPPAR-ID`, POANG FROM TIPS ORDER BY `TIPPAR-ID`");
 
@@ -103,11 +227,7 @@ Slut på spara poängen!
 		<div id="all">
 			<div id="content">
 				<div id="header"><h1>VM-tipset 2014</h1></div>
-				<div id="menu">
-					<div class="menubox">
-						<button class="btn btn-info menubutton" onclick="getPage('start.php','nej')">Hem &nbsp; <i class="icon-home"></i></button><button class="btn btn-info menubutton" onclick="getPage('tips.php','nej')">Mitt tips &nbsp; <i class="icon-pencil"></i></button><button class="btn btn-info menubutton" onclick="getPage('table.php','nej')">Tabell &nbsp; <i class="icon-list-alt"></i></button>
-					</div>
-				</div>
+				<div id="menu"><button class="btn btn-info menubutton" onclick="getPage('start.php','nej')">Hem &nbsp; <i class="icon-home"></i></button><button class="btn btn-info menubutton" onclick="getPage('tips.php','nej')">Mitt tips &nbsp; <i class="icon-pencil"></i></button><button class="btn btn-info menubutton" onclick="getPage('table.php','nej')">Tabell &nbsp; <i class="icon-list-alt"></i></button></div>
 				<div id="maincontent">
 				</div>
 			</div>

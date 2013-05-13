@@ -26,9 +26,14 @@
 			{
 				poang2="<span class='badge badge-success'>"+poang+"</span>";
 			}
-			else
+			else if (poang==0)
 			{
 				poang2="<span class='badge badge-important'>"+poang+"</span>";
+			}
+			else if(poang<0)
+			{
+				poang2="<span class='badge badge-default'>-</span>";
+				resultat="?-?"
 			}
 
 			//Script som placerar in rätt värde i rätt td för startade matcher <span class="badge badge-success">2</span>
@@ -227,33 +232,44 @@
 					
 					$oddspoang = $hamtaodds3['ODDS'];
 					$nollpoang = 0;
+					$orapporterad = -1;
 
 					$sparapoang1 = "UPDATE TIPS SET POANG='$oddspoang' WHERE `MATCH-ID`='$matchid' AND `TIPPAR-ID`=$tipparid";
 					$sparapoang2 = "UPDATE TIPS SET POANG='$nollpoang' WHERE `MATCH-ID`='$matchid' AND `TIPPAR-ID`=$tipparid";
+					$sparapoang3 = "UPDATE TIPS SET POANG='$orapporterad' WHERE `MATCH-ID`='$matchid' AND `TIPPAR-ID`=$tipparid";
 					
-					if (($row2['HEMMAMAL_T']>$row2['BORTAMAL_T']) && ($tecken=="1")) 
+					if ($res_h==999) 
 					{
-						//Spara 1a-odds
-						mysqli_real_query($connection, $sparapoang1);
-						$poang = $oddspoang;
-					}
-					elseif (($row2['HEMMAMAL_T']==$row2['BORTAMAL_T']) && ($tecken=="X")) 
-					{
-						// Spara X-odds
-						mysqli_real_query($connection, $sparapoang1);
-						$poang = $oddspoang;
-					}
-					elseif (($row2['HEMMAMAL_T']<$row2['BORTAMAL_T']) && ($tecken=="2")) 
-					{
-						// Spara 2a-odds
-						mysqli_real_query($connection, $sparapoang1);
-						$poang = $oddspoang;
+						mysqli_real_query($connection, $sparapoang3);
+						$poang = $orapporterad;
 					}
 					else
 					{
-						//Spara 0 poäng
-						mysqli_real_query($connection, $sparapoang2);
-						$poang = $nollpoang;
+						if (($row2['HEMMAMAL_T']>$row2['BORTAMAL_T']) && ($tecken=="1")) 
+						{
+							//Spara 1a-odds
+							mysqli_real_query($connection, $sparapoang1);
+							$poang = $oddspoang;
+						}
+						elseif (($row2['HEMMAMAL_T']==$row2['BORTAMAL_T']) && ($tecken=="X")) 
+						{
+							// Spara X-odds
+							mysqli_real_query($connection, $sparapoang1);
+							$poang = $oddspoang;
+													
+						}
+						elseif (($row2['HEMMAMAL_T']<$row2['BORTAMAL_T']) && ($tecken=="2")) 
+						{
+							// Spara 2a-odds
+							mysqli_real_query($connection, $sparapoang1);
+							$poang = $oddspoang;
+						}
+						else
+						{
+							//Spara 0 poäng
+							mysqli_real_query($connection, $sparapoang2);
+							$poang = $nollpoang;
+						}
 					}
 	
 					/* free result set */

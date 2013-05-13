@@ -218,21 +218,6 @@ div.newsheading
 	padding: 5px;
 }
 
-h1.news
-{
-	font-size:30px;
-	text-align: left;
-	display:inline;
-    background-color:#E6E6E6;
-	line-height: 1.2em;
-	text-shadow:none;
-}
-
-h2.standings
-{
-	text-shadow: 2px 2px #FFFFFF;
-}
-
 div.news
 {
 	background-color:white;
@@ -287,6 +272,29 @@ hr.news
 	);
 }
 
+div#tablepage
+{
+	padding: 10px;
+	overflow-y: auto;
+}
+
+div#bigbettable
+{
+	display: inline-block;
+}
+
+div#rightcolumn
+{
+	display: inline-block;
+	/*float: right;*/
+}
+
+div#thisround, div#formtable
+{
+	border: 3px solid black;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
 
 /* rubriker och texter
 ----------------------------------*/
@@ -360,6 +368,26 @@ h1.loginh1
 	margin-bottom:40px;
 }
 
+h1.news
+{
+	font-size:30px;
+	text-align: left;
+	display:inline;
+    background-color:#E6E6E6;
+	line-height: 1.2em;
+	text-shadow:none;
+}
+
+h2.standings
+{
+	text-shadow: 2px 2px #66aaff;
+}
+
+h4.standings
+{
+	text-shadow: 2px 2px #aaddaa;
+}
+
 
 /* övrigt
 ----------------------------------*/
@@ -394,6 +422,7 @@ td, th
 {
 	border: 0px solid black;
 	background-color: none;
+	padding-right: 5px;
 }
 
 #ministandingstable
@@ -410,6 +439,33 @@ td, th
 	color: #FFFFFF;
 	cursor: default;
 	text-shadow: 2px 2px 3px #000000;
+}
+
+#standingstable
+{
+	font-family: "Courier New";
+	font-size: 10pt;
+	text-align: center;
+	border: 3px solid black;
+	width: 100%;
+}
+
+#standingstablehead
+{
+	padding-right: 10px;
+}
+
+td.plats
+{
+	font: 16pt "Trebuchet MS", sans-serif;
+}
+
+.standingstablerow:hover
+{
+	font-weight: bold;
+	color: #000;
+	cursor: default;
+	text-shadow: 5px 5px 5px #F5C79F;
 }
 
 #bettable
